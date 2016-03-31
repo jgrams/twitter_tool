@@ -20,7 +20,20 @@ def post_to_authorize
   @response = http.request(request, body = body)
  # params = { <query_hash> } # headers = { <header_hash> } # http = Net::HTTP.new(uri.host, uri.port) # request = Net::HTTP::Get.new(uri.path) # request.set_form_data( params ) # request = Net::HTTP::Get.new( uri.path+ '?' + request.body , headers) # response = http.request(request) end # #Example Twitter Request in Ruby # place Verisign (and all other) certs in /etc/ssl/certs # # # url = URI.parse 'https://api.twitter.com/1.1/'# url << 'database item'# http = Net::HTTP.new(url.host, url.port) # http.ca_path = RootCA # http.verify_mode = OpenSSL::SSL::VERIFY_PEER # http.verify_depth = 9 # request = Net::HTTP::Get.new(url.path) # # handle oauth here, or whatever you need to do... # response = http.request(request)
   # # ... process response ...
+end
 
+
+
+def new_twitter_handle
+  @twitterhandle = TwitterFeed.new
+end
+
+def new_twitter_handle
+  @twitterhandle = TwitterFeed.new(first_input_params)
+  if @twitterhandle.save
+    format.html { redirect_to @first_input, notice: 'First input was successfully created.' }
+  end
+end
 
   # #example twitter request
 

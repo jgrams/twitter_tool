@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'twitters#new_twitter_handle'
   get 'twitters/testing_page' => 'twitters#post_to_authorize'
   get 'new' => 'twitters#new_twitter_handle'
   get 'twitter_feeds' => 'twitters#show'

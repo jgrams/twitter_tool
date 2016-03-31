@@ -18,8 +18,7 @@ def post_to_authorize
   request = Net::HTTP::Post.new(uri.path, initheader = headers)
  # binding.pry
   @response = http.request(request, body = body)
- # params = { <query_hash> } # headers = { <header_hash> } # http = Net::HTTP.new(uri.host, uri.port) # request = Net::HTTP::Get.new(uri.path) # request.set_form_data( params ) # request = Net::HTTP::Get.new( uri.path+ '?' + request.body , headers) # response = http.request(request) end # #Example Twitter Request in Ruby # place Verisign (and all other) certs in /etc/ssl/certs # # # url = URI.parse 'https://api.twitter.com/1.1/'# url << 'database item'# http = Net::HTTP.new(url.host, url.port) # http.ca_path = RootCA # http.verify_mode = OpenSSL::SSL::VERIFY_PEER # http.verify_depth = 9 # request = Net::HTTP::Get.new(url.path) # # handle oauth here, or whatever you need to do... # response = http.request(request)
-  # # ... process response ...
+
 end
 
 
@@ -36,6 +35,7 @@ def create_twitter_handle
 end
 
 def show
+  @twitter_feed = TwitterFeed.find_by(params[:id])
 end
 
 private
@@ -45,16 +45,6 @@ def twitter_feed_params
   params.require(:twitter_feed).permit(:twitter_handle)
 end
 
-  # #example twitter request
 
-  # POST /oauth2/token HTTP/1.1
-  # Host: api.twitter.com
-  # User-Agent: My Twitter App v1.0.23
-  # Authorization: Basic eHZ6MWV2R ... o4OERSZHlPZw==
-  # Content-Type: application/x-www-form-urlencoded;charset=UTF-8
-  # Content-Length: 29
-  # Accept-Encoding: gzip
-
-  # grant_type=client_credentials
 
 end

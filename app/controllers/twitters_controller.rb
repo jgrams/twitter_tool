@@ -25,14 +25,24 @@ end
 
 
 def new_twitter_handle
-  @twitterhandle = TwitterFeed.new
+  @twitter_feed = TwitterFeed.new
 end
 
-def new_twitter_handle
-  @twitterhandle = TwitterFeed.new(first_input_params)
-  if @twitterhandle.save
-    format.html { redirect_to @first_input, notice: 'First input was successfully created.' }
+def create_twitter_handle
+  @twitter_feed = TwitterFeed.new(twitter_feed_params)
+  if @twitter_feed.save
+    format.html { redirect_to "show", notice: 'First input was successfully created.' }
   end
+end
+
+def show
+end
+
+private
+
+def twitter_feed_params
+  binding.pry
+  params.require(:twitter_feed).permit(:twitter_handle)
 end
 
   # #example twitter request

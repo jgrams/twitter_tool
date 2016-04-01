@@ -35,6 +35,7 @@ gem 'rest-client'
 # gem 'capistrano-rails', group: :development
 
 gem 'httparty'
+gem 'omniauth-twitter'
 
 
 group :development, :test do

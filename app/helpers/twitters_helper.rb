@@ -1,2 +1,2 @@
-module TwittersHelper
+module UsersHelper
 end

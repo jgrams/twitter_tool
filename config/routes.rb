@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  root 'users#new_twitter_handle'
+  root 'users#new'
   get '/auth/:provider/callback' => 'users#create'
-  get 'twitters/testing_page' => 'users#post_to_authorize'
-  get 'new' => 'users#new_twitter_handle'
-  get 'twitter_feeds' => 'users#show'
-  post 'twitter_feeds' => 'users#create_twitter_handle'
+  get 'user/new' => 'users#new'
+  get 'tweet/all' => 'tweets#show'
+  post 'tweet/new' => 'tweets#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

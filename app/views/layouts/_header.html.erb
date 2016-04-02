@@ -1,9 +1,13 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "Start Over", root_path, id: "logo" %>
+    <%= link_to "Home", root_path, id: "logo" %>
     <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "New",    root_path %></li>
+      <ul class="nav navbar-nav navbar-right">	
+      <!-- make this the current user's image -->
+        <% if current_user %>
+      		<li>Signed in as <%= current_user.name %></li>>
+    		<% end %>
+        <li><%= link_to "New Session",    root_path %></li>
         <li><%= link_to "Authorize",    "/auth/twitter" %></li>
       </ul>
     </nav>

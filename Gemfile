@@ -36,6 +36,7 @@ gem 'rest-client'
 
 gem 'httparty'
 gem 'omniauth-twitter'
+gem 'twitter'
 
 
 group :development, :test do

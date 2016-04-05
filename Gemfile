@@ -37,6 +37,7 @@ gem 'rest-client'
 gem 'httparty'
 gem 'omniauth-twitter'
 gem 'twitter'
+gem 'jqcloud-rails'
 
 
 group :development, :test do

@@ -1,12 +1,22 @@
 class TweetsController < ApplicationController
-	def new
-		current_user.twitter
-	end
+  def new
+  	current_user.twitter
+  end
 
-	def show
-	  @tweets = current_user.twitter.user_timeline	
-	  binding.pry
-	end
+  def show
+    tweets = current_user.twitter.user_timeline({count: 200, include_rts: true})
+    array_of_tweets = []
+    tweets.each {|tweet| array_of_tweets.push(tweet[:text])}
+    @word_count = reduce(array_of_tweets)
+  end
 
+  def reduce(array_of_strings)
+    #return an array of arrays
+    all_words = array_of_strings.map {|string| string.downcase.split(" ")}
+    all_words = all_words.flatten
+    #reduce the array of arrays created above into a hash with words as keys and counts as values
+    all_words = all_words.reduce({}) { |h, w| h.update(w => h.fetch(w, 0) + 1) }
+    all_words.map{|key, value| Hash['text'=>key, 'weight'=>value]}
+  end
 
 end

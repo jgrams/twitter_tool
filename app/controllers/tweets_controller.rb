@@ -1,7 +1,5 @@
 class TweetsController < ApplicationController
   def new_search
-    
-  	current_user.twitter.user_timeline( ,{count: 200, include_rts: true})
   end
 
   def show

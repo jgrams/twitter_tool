@@ -118,15 +118,15 @@ $defualt-animation-timing-function: cubic-bezier(1,.01,.46,1.48);
 header {
     width:100%;
     text-align:center;
-    height:0px;
+    height:40px;
     font-family: 'Muli', sans-serif;
     font-weight: 400;
     color:#fff;
-    padding-bottom:30px;
+    padding-top: 15px;
+    padding-bottom:40px;
 }
 
 h2 {
-  margin-top:15px;
   font-size:25px;
   font-weight: 400;
   
@@ -135,7 +135,6 @@ h2 {
 .left {
     float:left;
   padding-left:20px;
-   padding-top:15px;
    
 }
 
@@ -148,7 +147,6 @@ h2 {
 
 .right {
   padding-right:20px;
-  padding-top:15px;
     float:right;
 	
 

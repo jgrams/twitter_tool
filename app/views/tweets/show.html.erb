@@ -8,7 +8,7 @@
       /*!
        * Create an array of word objects, each representing a word in the cloud
        */
-      var word_array = JSON.parse(<%= @word_count.to_json %>);
+      var word_array = <%= raw @word_count.to_json %>;
           // ...as many words as you want
 
       $(function() {

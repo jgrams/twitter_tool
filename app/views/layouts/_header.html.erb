@@ -1,15 +1,26 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "Home", root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">	
-      <!-- make this the current user's image -->
-        <% if current_user %>
-      		<li>Signed in as <%= current_user.name %></li>>
-    		<% end %>
-        <li><%= link_to "New Session",    root_path %></li>
-        <li><%= link_to "Authorize",    "/auth/twitter" %></li>
-      </ul>
-    </nav>
+<!-- should not be on first page. first page no header.--> 
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<header>
+  <div class="left">
+    
+   <i class="fa fa-home fa-3x"><%= link_to "Home", root_path%></i>
+  
+  </div>
+  <div class="center">
+    <!-- if search bar doesnt work/ too complicated use following--> 
+    <!--  --> 
+    <h2> What have you been tweeting about?</h2>
+  
+      
+</div>
+  </div>
+  
+  <div class="right">
+    
+    
+  <i class="fa fa-user fa-3x"></i>
+    
   </div>
 </header>

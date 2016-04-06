@@ -38,12 +38,17 @@ button#try{
   background-color: #292F33;
   border: none;
   color:white;
-  padding:10px 15px;
+  padding:20px 15px 10px 15px;
   font-size: 3rem;
   font-weight: 300;
   text-align: center;
   border-radius: 8px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  transition: all 0.3s ease 0s;
+}
+
+button:hover {
+  background: #4099ff;
 }
 
 .cd-title {

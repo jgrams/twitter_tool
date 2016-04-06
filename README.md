@@ -5,4 +5,6 @@ Eventually I want to integrate API calls to other social media sites also.
 
 Ruby version '2.2.3'
 
-Initial deploy will be AWS.
+Initial deploy will be Heroku.
+
+

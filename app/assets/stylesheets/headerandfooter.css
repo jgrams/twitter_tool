@@ -147,10 +147,11 @@ h2 {
 
 .right {
   padding-right:20px;
-    float:right;
-	
+    float:right; 
+}
 
- 
+.img-circle {
+        border-radius: 50%;
 }
 
 

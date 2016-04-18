@@ -2,6 +2,11 @@ class TweetsController < ApplicationController
   def new_search
   end
 
+  #for returning the user image in the header
+  def user_image
+    
+  end
+
   def show
     #collect the most recent 200 tweets, returned as an array
     tweets = current_user.twitter.user_timeline({count: 200, include_rts: true, trim_user: true})

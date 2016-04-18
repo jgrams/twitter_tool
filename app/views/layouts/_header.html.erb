@@ -19,8 +19,10 @@
   
   <div class="right">
     
-    
-  <i class="fa fa-user fa-3x"></i>
-    
+  <% if current_user? %> 
+    <i class="fa fa-user fa-3x"></i>
+  <% else %> 
+    <i class="fa fa-user fa-3x"></i>
+  <% end %>  
   </div>
 </header>

@@ -19,7 +19,7 @@ class TweetsController < ApplicationController
 
   def tweeter_search
     #collect the most recent 200 tweets, returned as an array
-    user = #collect params from form
+    user = 
     tweets = current_user.twitter.user_timeline(user, {count: 200, include_rts: true, trim_user: true})
     array_of_tweets = []
     #returns an array of tweet texts with identifying data removed

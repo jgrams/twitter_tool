@@ -7,12 +7,11 @@
   
   </div>
   <div class="center">
-  
-      search new username...
-    <% if current_user %> 
-    <div id="search-bar" class="search-bar">
-    <input type="text" />
-    <div id="close" class="toggle"></div>
+    <% if current_user %>
+    <%= form_tag(user_search_path, :method => "post", id: "search-bar") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+    <%= submit_tag "Search" %>
+    <% end %>
     <% end %>
 </div>
     

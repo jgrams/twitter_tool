@@ -53,15 +53,17 @@ h2 {
     margin:0 auto;
     font-size:12px;
   line-height:25px;
+  padding-top:20px;
 }
 
 .right {
   padding-right:20px;
   padding-top:25px;
     float:right;
-    
+}
 
- 
+.img-circle {
+    border-radius: 50%;
 }
 
 

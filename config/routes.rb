@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'user/new' => 'users#new'
   get 'tweet/show' => 'tweets#show'
   post 'tweet/new' => 'tweets#new'
+  post 'user/search' => 'searches#tweeter_search'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -4,7 +4,7 @@ class TweetsController < ApplicationController
 
   #for returning the user image in the header
   def user_image
-    
+
   end
 
   def show
@@ -13,7 +13,8 @@ class TweetsController < ApplicationController
     array_of_tweets = []
     #returns an array of tweet texts with identifying data removed
     tweets.each {|tweet| array_of_tweets.push(tweet[:text])}
-    @word_count = reduce(array_of_tweets)
+    #calls the reduce method in model
+    @word_count = Tweet.reduce(array_of_tweets)
   end
 
   def tweeter_search

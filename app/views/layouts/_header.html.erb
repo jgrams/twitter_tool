@@ -20,7 +20,7 @@
   <div class="right">
   <!--  doesn't use the --> 
   <% if current_user %> 
-    <i class="fa fa-user fa-3x"></i>
+    <%= tag('img', src: session[:image], class: "img-circle") %> 
   <% else %> 
     <i class="fa fa-user fa-3x"></i>
   <% end %>  

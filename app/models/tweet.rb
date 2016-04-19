@@ -2,7 +2,7 @@ class Tweet < ActiveRecord::Base
 	belongs_to :user
 	validates :user_id, :body, presence:true
 
-  def reduce(array_of_strings)
+  def self.reduce(array_of_strings)
     #return an array of arrays
     all_words = array_of_strings.map {|string| string.downcase.split(" ")}
     all_words = all_words.flatten

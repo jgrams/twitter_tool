@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Twitter Cloud</title>
+    <%= binding.pry %>;
     <link rel="stylesheet" type="text/css" href="jqcloud.css" />
     <script type="text/javascript" src="jqcloud-1.0.4.js"></script>
     <script type="text/javascript">
@@ -19,10 +20,9 @@
   </head>
   <div class="center">
     <% if current_user %>
-      <%= binding.pry %> 
       <%= form_for @search do |s| %> 
       <%= s.text_field :username, id: "search-bar" %>
-      <%= s.submit "Try Someone Else" %>
+      <%= s.submit "Find Someone Else", id: "search-bar" %>
       <% end %>
     <% end %>
   </div>

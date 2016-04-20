@@ -11,4 +11,5 @@ class Tweet < ActiveRecord::Base
     all_words.map{|key, value| Hash[text: key.to_s, weight: value.to_i]}
   end
 
+
 end

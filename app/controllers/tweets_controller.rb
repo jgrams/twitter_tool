@@ -12,8 +12,8 @@ class TweetsController < ApplicationController
     tweets = current_user.twitter.user_timeline({count: 200, include_rts: true, trim_user: true})
     array_of_tweets = []
     #returns an array of tweet texts with identifying data removed
+    #I can simplify this code, move to model
     tweets.each {|tweet| array_of_tweets.push(tweet[:text])}
-    #calls the reduce method in model
     @word_count = Tweet.reduce(array_of_tweets)
   end
 

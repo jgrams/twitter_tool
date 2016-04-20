@@ -3,18 +3,13 @@
     
    <i class="fa fa-home fa-3x"></i>
   
-</div>
-    
-    
-</div>
-  </div>
-  
+</div> 
   <div class="right">
     <% if current_user %> 
-      <%= tag('img', src: session[:image], class: "img-circle") %> 
-    <% else %> 
-      <i class="fa fa-user fa-3x"></i>
-  <% end %>  
+        <%= tag('img', src: session[:image], class: "img-circle") %> 
+      <% else %> 
+        <i class="fa fa-user fa-3x"></i>
+    <% end %>  
     
   </div>
 </header>

@@ -1,18 +1,8 @@
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-
 <header>
   <div class="left">
     
    <i class="fa fa-home fa-3x"></i>
   
-  </div>
-  <div class="center">
-    <% if current_user %>
-    <%= form_tag(user_search_path, :method => "post", id: "search-bar") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
-    <%= submit_tag "Search" %>
-    <% end %>
-    <% end %>
 </div>
     
     

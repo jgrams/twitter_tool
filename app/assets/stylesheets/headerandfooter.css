@@ -1,6 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Muli:400,300);
-
-
 /* BODY: 1. background color should be #4099ff, or should match first page. Word cloud should be 2. centered and have atleast 3. 100 px padding on top and bottom.  */
 
 body {
@@ -64,6 +61,8 @@ h2 {
 
 .img-circle {
     border-radius: 50%;
+    max-width: 100%;
+    height: auto;
 }
 
 
@@ -89,8 +88,6 @@ font-family: 'Muli', sans-serif;
 
 a { 
   color: #3A5FCD;
-  cursor: crosshair;
-    
 }
 
 

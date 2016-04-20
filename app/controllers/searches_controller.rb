@@ -6,10 +6,11 @@ class SearchesController < ApplicationController
       tweets = current_user.twitter.user_timeline(@search.username, {count: 200, include_rts: true, trim_user: true})
       array_of_tweets = []
       #returns an array of tweet texts with identifying data removed
+      #i should move this flattening action to the model eventually
       tweets.each {|tweet| array_of_tweets.push(tweet[:text])}
       @word_count = reduce(array_of_tweets)
     else
-      #error reporting
+      binding.pry
     end
   end
 

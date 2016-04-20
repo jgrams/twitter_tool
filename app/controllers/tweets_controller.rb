@@ -15,8 +15,9 @@ class TweetsController < ApplicationController
     #I can simplify this code, move to model
     tweets.each {|tweet| array_of_tweets.push(tweet[:text])}
     @word_count = Tweet.reduce(array_of_tweets)
+    #makes a new search object that can be passed along to the search controller
+    @search = current_user.searches.new
   end
-
 
 
 end

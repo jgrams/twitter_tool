@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'users#create'
   get 'user/new' => 'users#new'
   post 'user/destroy' => 'users#destroy'
-  get 'tweet/show' => 'tweets#show'
-  post 'tweet/new' => 'tweets#new'
+  get 'search/show' => 'searches#show'
   post 'searches' =>  'searches#create'
 
   # The priority is based upon order of creation: first created -> highest priority.

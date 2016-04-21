@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= binding.pry %> 
-    <%= scale_range_to_percentage(@interaction_count) %> 
-    <%= @content_count %> 
+    <div class="split-center">
+    <% min = @content_count[-1][1].to_i %>
+    <% max = @content_count[0][1].to_i %>
+
+    <% @content_count.each do |content| %>
+      <% percent = scale_range_to_percentage(content, min, max) %> 
+     <%= tag('div', title: content[0], class: "circle", style: ["width: #{percent};", "height: #{percent}", "font-size: #{percent}"]) %>
+      <%= content[0] %> 
+      </div> 
+    <% end %>
+    <% @interaction_count.each do |interaction| %>
+      <% percent = scale_range_to_percentage(interaction, min, max) %> 
+      <%= tag('div', title: interaction[0], class: "circle", style: ["width: #{percent};", "height: #{percent};"]) %>  
+      <%= interaction[0] %> 
+    <% end %>
+    </div>
   </head>
   <div class="center">
     <% if current_user %>

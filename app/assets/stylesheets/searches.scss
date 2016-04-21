@@ -1,3 +1,29 @@
 // Place all the styles related to the Searches controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.wrapper{
+	width: 20%;
+    display: inline-block;
+    position: relative;
+}
+
+.split-center{
+    width: 20%;
+    display: inline-block;
+    position: relative;
+}
+
+.circle
+    {
+    line-height: 120px;
+	-moz-border-radius: 30px; /* or 50% */
+    border-radius: 30px; /* or 50% */
+    width:120px;
+    height:120px;
+    border-radius:60px;
+    font-size:100px;
+    color:#fff;
+    text-align:center;
+    background:#000
+    }

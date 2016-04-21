@@ -31,12 +31,24 @@ class Search < ActiveRecord::Base
       "we've"=>0, "were"=>0, "weren't"=>0, "what"=>0, "what's"=>0, "when"=>0, "when's"=>0, "where"=>0, "where's"=>0, 
       "which"=>0, "while"=>0, "who"=>0, "who's"=>0, "whom"=>0, "why"=>0, "why's"=>0, "with"=>0, "won't"=>0, "would"=>0, 
       "wouldn't"=>0, "you"=>0, "you'd"=>0, "you'll"=>0, "you're"=>0, "you've"=>0, "your"=>0, "yours"=>0, "yourself"=>0, 
-      "yourselves"=>0, "zero"=>0
-      #add twitter specific hash words
-      {"rt"=>0}
+      "yourselves"=>0, "zero"=>0, "rt"=>0
+      #add twitter specific hash words like rt
     }
     #drop any word in the stop_word_hash
     hash.reject { |key, value| stop_word_hash[key] }
+  end
+  #pulls out @tweets
+  def self.at_tweets(hash)
+    hash.find_all { |key, value| key[0] = "@" }
+  end
+  #pulls out not @ tweets, so content words to add further functionality to
+  def self.content_words(hash)
+    hash.reject { |key, value| key[0] = "@" }
+  end
+
+  #Return an array of top x word_count objects converted to an array 
+  def sort_word_count_hash(hash, x=40)
+    hash.sort_by { |word, count| count.to_i }.reverse.first(x)
   end
 
   def self.return_stop_words(hash)

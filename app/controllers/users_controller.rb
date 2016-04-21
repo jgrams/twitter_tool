@@ -6,7 +6,7 @@ def create
   session[:user_id] = @user.id
   #can this be moved to model
   session[:image] = @user.profile_image
-  redirect_to tweet_show_path
+  redirect_to search_show_path
 end
 
 def destroy

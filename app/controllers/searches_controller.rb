@@ -3,7 +3,7 @@ class SearchesController < ApplicationController
     #collect the most recent 200 tweets, returned as an array
     @search = current_user.searches.new(search_params)
     if @search.save
-      redirect_to tweet_show_path(search_params)
+      redirect_to  search_show_path(search_params)
       else
         binding.pry
     end

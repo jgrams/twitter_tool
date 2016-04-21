@@ -2,24 +2,13 @@
 <html>
   <head>
     <title>Twitter Cloud</title>
-    <link rel="stylesheet" type="text/css" href="jqcloud.css" />
-    <script type="text/javascript" src="jqcloud-1.0.4.js"></script>
-    <script type="text/javascript">
-      /*!
-       * Create an array of word objects, each representing a word in the cloud
-       */
-      var word_array = <%= raw @word_count.to_json %>;
-          // ...as many words as you want
-
-      $(function() {
-        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-        $("#cloud").jQCloud(word_array);
-      });
-    </script>
+    <%= form_for @search do |s| %>
+      <%= s %>
+    <%= end %>
   </head>
   <div class="center">
     <% if current_user %>
-      <%= form_for @search do |s| %> 
+      <%= form_for @new_search do |s| %> 
       <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
       <%= s.submit "Find Someone Else", class: "button hover_button", id: 'Submit Search' %>
       <% end %>

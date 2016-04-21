@@ -1,13 +1,12 @@
 class Search < ActiveRecord::Base
   belongs_to :user
-  validates :user_id, :body, presence:true
+  validates :user_id, presence:true
 
-  def self.reduce(array_of_strings)
-    #return an array of arrays
-    all_words = array_of_strings.map {|string| string.downcase.split(" ")}
-    all_words = all_words.flatten
+  def self.reduce(long_tweet_string)
+    #sanetize input with a regex and downcase and make an array of individual words
+    all_words = long_tweet_string.gsub(/[^0-9a-z@# ]/i, '').downcase.split ' '
     #reduce the array of arrays created above into a hash with words as keys and counts as values
-    all_words = all_words.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
-    all_words.map{|key, value| Hash[text: key.to_s, weight: value.to_i]}
+    word_count_hash = all_words.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
+  word_count_hash
   end
 end

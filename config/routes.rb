@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root 'users#new'
   get '/auth/:provider/callback' => 'users#create'
   get 'user/new' => 'users#new'
+  post 'user/destroy' => 'users#destroy'
   get 'tweet/show' => 'tweets#show'
   post 'tweet/new' => 'tweets#new'
   post 'searches' =>  'searches#create'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

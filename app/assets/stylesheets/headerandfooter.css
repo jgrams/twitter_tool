@@ -86,6 +86,14 @@ h2 {
     height: auto;
 }
 
+.hover_button {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.button4:hover {background-color: #e7e7e7;}
+
 
 
 //footer//

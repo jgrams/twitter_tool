@@ -9,6 +9,11 @@ def create
   redirect_to tweet_show_path
 end
 
+def destroy
+  session[:user_id] = nil
+  redirect_to root_path
+end
+
 protected
 
 def auth_hash

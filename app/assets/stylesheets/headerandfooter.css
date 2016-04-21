@@ -85,6 +85,21 @@ h2 {
     max-width: 100%;
     height: auto;
 }
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
 
 .hover_button {
     background-color: white;
@@ -92,7 +107,10 @@ h2 {
     border: 2px solid #e7e7e7;
 }
 
-.button4:hover {background-color: #e7e7e7;}
+.hover_button:hover {
+  background-color: #4099ff;
+  border-color:#4099ff 
+}
 
 
 

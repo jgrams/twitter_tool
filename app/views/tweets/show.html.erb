@@ -20,8 +20,8 @@
   <div class="center">
     <% if current_user %>
       <%= form_for @search do |s| %> 
-      <%= s.text_field :username, id: "search-bar" %>
-      <%= s.submit "Find Someone Else", id: "search-bar" %>
+      <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
+      <%= s.submit "Find Someone Else", class: "button hover_button", id: 'Submit Search' %>
       <% end %>
     <% end %>
   </div>

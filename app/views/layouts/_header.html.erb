@@ -6,8 +6,12 @@
 </div> 
   <div class="right">
     <% if current_user %> 
-        <%= button_to "Logout", user_destroy_path, class: "hover_button" %>
-        <%= tag('img', src: session[:image], class: "img-circle") %> 
+        <div>
+         <%= button_to "Log Out", user_destroy_path, class: "button hover_button" %>
+        </div>
+        <div>
+          <%= tag('img', src: session[:image], class: "img-circle") %>
+        </div>
       <% else %> 
         <i class="fa fa-user fa-3x"></i>
     <% end %>  

@@ -38,7 +38,6 @@ gem 'rest-client'
 gem 'httparty'
 gem 'omniauth-twitter'
 gem 'twitter'
-gem 'jqcloud-rails'
 
 gem 'rails_12factor', group: :production
 

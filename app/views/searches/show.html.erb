@@ -7,13 +7,13 @@
 
     <% @content_count.each do |content| %>
       <% percent = scale_range_to_percentage(content, min, max) %> 
-     <%= tag('div', title: content[0], class: "circle", style: ["width: #{percent};", "height: #{percent}", "font-size: #{percent}"]) %>
+     <%= tag('div', title: content[0], class: "circle", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %>
       <%= content[0] %> 
       </div> 
     <% end %>
     <% @interaction_count.each do |interaction| %>
       <% percent = scale_range_to_percentage(interaction, min, max) %> 
-      <%= tag('div', title: interaction[0], class: "circle", style: ["width: #{percent};", "height: #{percent};"]) %>  
+      <%= tag('div', title: interaction[0], class: "circle", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %>
       <%= interaction[0] %> 
     <% end %>
     </div>

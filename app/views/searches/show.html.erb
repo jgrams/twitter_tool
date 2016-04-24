@@ -6,7 +6,7 @@
     <% max = @content_count[0][1].to_i %>
     <% @content_count.each do |content| %>
       <% percent = scale_range_to_percentage(content, min, max) %> 
-      <%= content_tag('svg', content_tag('text', "#{content[0]}", class: "svg-text"), class: "svg-circle", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %>
+      <%= content_tag('svg', content_tag('text', "#{content[0]}", class: "svg-text svg-wrapper"), class: "svg-circle svg-wrapper", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %>
     <% end %>
     </div> 
     <div class="split-center">
@@ -14,7 +14,7 @@
     <% max = @interaction_count[0][1].to_i %>
     <% @interaction_count.each do |interaction| %>
       <% percent = scale_range_to_percentage(interaction, min, max) %> 
-      <%= content_tag('svg', content_tag('text', "#{interaction[0]}", class: "svg-text"), class: "svg-circle", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %> 
+      <%= content_tag('svg', content_tag('text', "#{interaction[0]}", class: "svg-text svg-wrapper"), class: "svg-circle svg-wrapper", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %> 
     <% end %>
     </div>
   </head>

@@ -10,21 +10,23 @@
     align: center;
 }
 
-.svg-circle
-    {
-    border-radius: 50%;
-    width:400px;
-    height:400px;
-    color:#0D0D0D;
-    text-align:center;
-    background:#fff;
-    }
+.svg-wrapper{
+    width:200px;
+    height:200px;
+    .svg-circle
+        {
+        border-radius: 50%;
+        color:#0D0D0D;
+        text-align:center;
+        background:#fff;
+        }
 
-.svg-text
-    {
-    fill:#0D0D0D;
-    font-size:10px;
-    text-anchor:middle;
-    x:'60';
-    y:'75';
+    .svg-text
+        {
+        fill:#0D0D0D;
+        font-size:10px;
+        text-anchor:middle;
+        x:'60';
+        y:'75';
+    }
 }

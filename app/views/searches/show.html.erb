@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <div class="split-center">
+  </head>
+  <body>
+    <div>
     <% min = @content_count[-1][1].to_i %>
     <% max = @content_count[0][1].to_i %>
     <% @content_count.each do |content| %>
-      <% percent = scale_range_to_percentage(content, min, max) %> 
-      <%= content_tag('svg', content_tag('text', "#{content[0]}", class: "svg-text svg-wrapper"), class: "svg-circle svg-wrapper", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %>
+      <% pixel_size = scale_range_to_pixel_size(content, min, max) %> 
+      <%= nest_svg_divs(content, pixel_size) %>
     <% end %>
     </div> 
     <div class="split-center">
     <% min = @interaction_count[-1][1].to_i %>
     <% max = @interaction_count[0][1].to_i %>
     <% @interaction_count.each do |interaction| %>
-      <% percent = scale_range_to_percentage(interaction, min, max) %> 
-      <%= content_tag('svg', content_tag('text', "#{interaction[0]}", class: "svg-text svg-wrapper"), class: "svg-circle svg-wrapper", style: ["width: #{percent};", "height: #{percent};", "font-size: #{percent};"]) %> 
+      <% percent = scale_range_to_pixel_size(interaction, min, max) %> 
+      <%= content_tag('svg', content_tag('text', "#{interaction[0]}", class: "svg-text svg-wrapper"), class: "svg-circle svg-wrapper", style: ["width: #{percent};", "height: #{percent};"]) %> 
     <% end %>
     </div>
-  </head>
+  </body>
   <div class="center">
     <% if current_user %>
       <%= form_for @new_search do |s| %> 
@@ -26,7 +28,4 @@
       <% end %>
     <% end %>
   </div>
-
-  <body>
-  </body>
 </html>

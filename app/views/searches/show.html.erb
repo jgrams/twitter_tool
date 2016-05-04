@@ -3,11 +3,11 @@
   <head>
   </head>
   <body>
-    <div>
+    <div class="split-center">
     <% min = @content_count[-1][1].to_i %>
     <% max = @content_count[0][1].to_i %>
     <% @content_count.each do |content| %>
-      <% pixel_size = scale_range_to_pixel_size(content, min, max) %> 
+      <% pixel_size = scale_word_count_to_pixel_size(content, min, max) %> 
       <%= nest_svg_divs(content, pixel_size) %>
     <% end %>
     </div> 
@@ -15,8 +15,8 @@
     <% min = @interaction_count[-1][1].to_i %>
     <% max = @interaction_count[0][1].to_i %>
     <% @interaction_count.each do |interaction| %>
-      <% percent = scale_range_to_pixel_size(interaction, min, max) %> 
-      <%= content_tag('svg', content_tag('text', "#{interaction[0]}", class: "svg-text svg-wrapper"), class: "svg-circle svg-wrapper", style: ["width: #{percent};", "height: #{percent};"]) %> 
+      <% pixel_size = scale_word_count_to_pixel_size(interaction, min, max) %> 
+      <%= nest_svg_divs(interaction, pixel_size) %>
     <% end %>
     </div>
   </body>

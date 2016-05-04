@@ -4,7 +4,6 @@ def create
   #creates a new user hash with info from OAuth2 created in the model
   @user = User.find_or_create_from_auth_hash(auth_hash)
   session[:user_id] = @user.id
-  #can this be moved to model
   session[:image] = @user.profile_image
   redirect_to search_show_path
 end

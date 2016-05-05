@@ -32,7 +32,7 @@ class Search < ActiveRecord::Base
       "which"=>0, "while"=>0, "who"=>0, "who's"=>0, "whom"=>0, "why"=>0, "why's"=>0, "with"=>0, "won't"=>0, "would"=>0, 
       "wouldn't"=>0, "you"=>0, "you'd"=>0, "you'll"=>0, "you're"=>0, "you've"=>0, "your"=>0, "yours"=>0, "yourself"=>0, 
       "yourselves"=>0, "zero"=>0, "rt"=>0
-      #add twitter specific hash words like rt
+      #add twitter specific hash words starting at rt
     }
     #drop any word in the stop_word_hash
     hash.reject { |key, value| stop_word_hash[key] }

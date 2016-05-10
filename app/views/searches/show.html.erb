@@ -4,20 +4,16 @@
   </head>
   <body>
     <div class="split-center">
-    <% min = @content_count[-1][1].to_i %>
-    <% max = @content_count[0][1].to_i %>
-    <% @content_count.each do |content| %>
-      <% pixel_size = scale_word_count_to_pixel_size(content, min, max) %> 
-      <%= nest_svg_divs(content, pixel_size) %>
-    <% end %>
+      <% find_max_and_min_word_count(@content_count) %>
+      <% @content_count.each do |content| %>
+        <%= nest_svg_divs(content, @range_minimum, @range_maximum) %>
+      <% end %>
     </div> 
     <div class="split-center">
-    <% min = @interaction_count[-1][1].to_i %>
-    <% max = @interaction_count[0][1].to_i %>
-    <% @interaction_count.each do |interaction| %>
-      <% pixel_size = scale_word_count_to_pixel_size(interaction, min, max) %> 
-      <%= nest_svg_divs(interaction, pixel_size) %>
-    <% end %>
+      <% find_max_and_min_word_count(@interaction_count) %>
+      <% @interaction_count.each do |interaction| %>
+        <%= nest_svg_divs(interaction, @range_minimum, @range_maximum) %>
+      <% end %>
     </div>
   </body>
   <div class="center">

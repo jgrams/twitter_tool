@@ -4,7 +4,7 @@ class Search < ActiveRecord::Base
 
   def self.reduce(long_tweet_string)
     #sanetize input with a regex and downcase and make an array of individual words
-    all_words = long_tweet_string.gsub(/[^0-9a-z@# ]/i, '').downcase.split(' ')
+    all_words = long_tweet_string.gsub(/[^0-9a-z@#' ]/i, '').downcase.split(' ')
     #reduce the array of arrays created above into a hash with words as keys and counts as values
     word_count_hash = all_words.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
   word_count_hash
@@ -41,12 +41,18 @@ class Search < ActiveRecord::Base
   def self.at_tweets(hash)
     hash.find_all { |key, value| key[0] == "@" }
   end
-  #pulls out not @ tweets, so content words to add further functionality to
+  #pulls out not @tweets, so content words to add further functionality to
   def self.content_words(hash)
     hash.reject { |key, value| key[0] == "@" }
   end
 
-  #Return an array of top x word_count objects converted to an array 
+  #pulls out hashtagged content
+  def self.hashtag_tweets(hash)
+    hash.find_all { |key, value| key[0] == "#" }
+  end
+
+  #Return an array of top x word_count objects converted to an array
+  #default is 40 words 
   def self.sort_word_count(hash, x=40)
     hash.sort_by { |word, count| count.to_i }.reverse.first(x)
   end

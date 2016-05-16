@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
 	#create authorization token
 	def twitter
-		  #checks for existing client or makes a new session with a oauth token request
+		  #checks for existing client or makes a new sessi   on with a oauth token request
   		@client ||= Twitter::REST::Client.new do |config|
 	    	config.consumer_key        = Rails.application.secrets.twitter_public_key
 		    config.consumer_secret     = Rails.application.secrets.twitter_secret_key

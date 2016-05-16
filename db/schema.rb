@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516031047) do
+ActiveRecord::Schema.define(version: 20160516062152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "examples", force: :cascade do |t|
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "username",                            null: false
+    t.hstore   "hashtag_count",          default: {}, null: false
+    t.hstore   "at_tweet_count",         default: {}, null: false
+    t.hstore   "content_count",          default: {}, null: false
+    t.hstore   "trimmed_hashtag_count",  default: {}, null: false
+    t.hstore   "trimmed_at_tweet_count", default: {}, null: false
+    t.hstore   "trimmed_content_count",  default: {}, null: false
+  end
 
   create_table "searches", force: :cascade do |t|
     t.datetime "created_at",                  null: false

@@ -2,20 +2,20 @@
 <html>
   <head>
   </head>
-  <body>
-    <div class="split-center">
+  <div style="width: 100%;">
+    <div class="first">
       <% find_max_and_min_word_count(@content_count) %>
       <% @content_count.each do |content| %>
         <%= nest_svg_divs(content, @range_minimum, @range_maximum) %>
       <% end %>
     </div> 
-    <div class="split-center">
+    <div class="second">
       <% find_max_and_min_word_count(@at_tweet_count) %>
       <% @at_tweet_count.each do |at_tweet| %>
         <%= nest_svg_divs(at_tweet, @range_minimum, @range_maximum) %>
       <% end %>
     </div>
-    <div class="split-center">
+    <div class="third">
       <% find_max_and_min_word_count(@hashtag_count) %>
       <% @hashtag_count.each do |hashtag| %>
         <%= nest_svg_divs(hashtag, @range_minimum, @range_maximum) %>

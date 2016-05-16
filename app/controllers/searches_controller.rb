@@ -26,20 +26,20 @@ class SearchesController < ApplicationController
       end
     reply.each { |tweet| string_of_tweets << (tweet.text + " ") }
     #save the recieved word_count_hash into the database
-    search.word_count =  Search.reduce(string_of_tweets)
+    word_count_hash = Search.reduce(string_of_tweets)
     #sanitize word_count from the model
-    word_count = Search.drop_stop_words(search.word_count)
-    #cut instance variable from word count later in clean up
-    #split the word_count hash into interactions and words
-    @interaction_count = Search.at_tweets(word_count)
-    @content_count = Search.content_words(word_count)
+    word_count_hash = Search.drop_stop_words(word_count_hash)
+    #update model with categories I'm likely to perform analysis on
+    search.word_count = Search.content_words(word_count_hash)
+    search.hashtag_count = Search.hashtag_tweets(word_count_hash)
+    search.at_tweet_count = Search.at_tweets(word_count_hash)
     #returns an array of 20 objects sorted by word_count
-    @interaction_count = Search.sort_word_count(@interaction_count)
-    @content_count = Search.sort_word_count(@content_count)
+    @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
+    @content_count = Search.sort_word_count(search.word_count)
+    @hashtag_count = Search.sort_word_count(search.hashtag_count)
     #@sorted_word_count = @sorted_word_count.sort_by { |word, count| count }.reverse
     #makes a new search object that can be passed along to the search controller
     @new_search = current_user.searches.new
-    binding.pry
   end
 
 

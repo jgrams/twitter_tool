@@ -10,9 +10,15 @@
       <% end %>
     </div> 
     <div class="split-center">
-      <% find_max_and_min_word_count(@interaction_count) %>
-      <% @interaction_count.each do |interaction| %>
-        <%= nest_svg_divs(interaction, @range_minimum, @range_maximum) %>
+      <% find_max_and_min_word_count(@at_tweet_count) %>
+      <% @at_tweet_count.each do |at_tweet| %>
+        <%= nest_svg_divs(at_tweet, @range_minimum, @range_maximum) %>
+      <% end %>
+    </div>
+    <div class="split-center">
+      <% find_max_and_min_word_count(@hashtag_count) %>
+      <% @hashtag_count.each do |hashtag| %>
+        <%= nest_svg_divs(hashtag, @range_minimum, @range_maximum) %>
       <% end %>
     </div>
   </body>

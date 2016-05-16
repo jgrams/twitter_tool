@@ -36,16 +36,16 @@ class Search < ActiveRecord::Base
   end
   #pulls out @tweets
   def self.at_tweets(hash)
-    hash.find_all { |key, value| key[0] == "@" }
+    hash.select { |key, value| key[0] == "@" }
   end
   #pulls out not @tweets, so content words to add further functionality to
   def self.content_words(hash)
-    hash.reject { |key, value| key[0] == "@" }
+    hash.select { |key, value| key[0] != "@" || key[0] != "#" }
   end
 
   #pulls out hashtagged content
   def self.hashtag_tweets(hash)
-    hash.find_all { |key, value| key[0] == "#" }
+    hash.select { |key, value| key[0] == "#" }
   end
 
   #Return an array of top x word_count objects converted to an array

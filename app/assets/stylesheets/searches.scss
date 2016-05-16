@@ -25,18 +25,24 @@
     alignment-baseline:middle;
 }
 
-.first
+.header {
+            padding: 25px 10px;
+            width: 675px;
+            border-bottom: 1px solid #d3d3d3;
+            overflow: no-content;
+        }
+.left
     {
     float: left;
-    width: 33.33333333%;  
+    width: 215px;  
 }
-.second
+.middle
     {
-  float: middle;
-  width: 33.33333333%;   
+
+  width: 215px;   
 }
-.third
+.right
     {
   float: right;
-  width: 33.33333333%;  
+  width: 215px;  
 }

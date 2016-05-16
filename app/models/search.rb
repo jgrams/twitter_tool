@@ -40,7 +40,7 @@ class Search < ActiveRecord::Base
   end
   #pulls out not @tweets, so content words to add further functionality to
   def self.content_words(hash)
-    hash.select { |key, value| key[0] != "@" || key[0] != "#" }
+    hash.select { |key, value| key[0] != "@" && key[0] != "#"}
   end
 
   #pulls out hashtagged content

@@ -1,4 +1,5 @@
 class SearchesController < ApplicationController
+  
   def create
     @search = current_user.searches.new(search_params)
     if @search.save
@@ -8,18 +9,22 @@ class SearchesController < ApplicationController
     end
   end
 
-  def update_with_word_count
+  def collect_with_max_id(collection=[], max_id=nil, &block)
+    response = yield(max_id)
+    collection += response
+    response.empty? ? collection.flatten : collect_with_max_id(collection, response.last.id - 1, &block)
   end
 
-
-  #copied from tweets controller
   def show
+    string_of_tweets = ""
     #collect the most recent 200 tweets fo search is supplied, or current user if no search supplied, returned as an array
     search = current_user.searches.find_or_create_by(username: params[:username])
-    tweets = current_user.twitter.user_timeline(search.username||=current_user.handle, {count: 200, include_rts: true, trim_user: true})
-    #make a giant string from the tweets in order to word count them
-    string_of_tweets = ""
-    tweets.each { |tweet| string_of_tweets << (tweet.text + " ") }
+    reply = collect_with_max_id do |max_id|
+        options = {count: 200, include_rts: true}
+        options[:max_id] = max_id unless max_id.nil?
+        current_user.twitter.user_timeline(search.username||=current_user.handle, options)
+      end
+    reply.each { |tweet| string_of_tweets << (tweet.text + " ") }
     #save the recieved word_count_hash into the database
     search.word_count =  Search.reduce(string_of_tweets)
     #sanitize word_count from the model
@@ -34,7 +39,9 @@ class SearchesController < ApplicationController
     #@sorted_word_count = @sorted_word_count.sort_by { |word, count| count }.reverse
     #makes a new search object that can be passed along to the search controller
     @new_search = current_user.searches.new
+    binding.pry
   end
+
 
 
   private

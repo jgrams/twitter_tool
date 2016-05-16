@@ -25,4 +25,6 @@ class User < ActiveRecord::Base
 		    config.access_token_secret = secret
   		end
 	end
+
+
 end

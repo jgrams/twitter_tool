@@ -6,11 +6,8 @@ class Search < ActiveRecord::Base
     #sanetize input with a regex and downcase and make an array of individual words
     all_words = long_tweet_string.gsub(/[^0-9a-z@#' ]/i, '').downcase.split(' ')
     #reduce the array of arrays created above into a hash with words as keys and counts as values
-    word_count_hash = all_words.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
-  word_count_hash
+    all_words.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
   end
-
-
 
   def self.drop_stop_words(hash)
     stop_word_hash = {"a"=>0, "about"=>0, "above"=>0, "after"=>0, "again"=>0, "against"=>0, "all"=>0, "am"=>0, 
@@ -31,7 +28,7 @@ class Search < ActiveRecord::Base
       "we've"=>0, "were"=>0, "weren't"=>0, "what"=>0, "what's"=>0, "when"=>0, "when's"=>0, "where"=>0, "where's"=>0, 
       "which"=>0, "while"=>0, "who"=>0, "who's"=>0, "whom"=>0, "why"=>0, "why's"=>0, "with"=>0, "won't"=>0, "would"=>0, 
       "wouldn't"=>0, "you"=>0, "you'd"=>0, "you'll"=>0, "you're"=>0, "you've"=>0, "your"=>0, "yours"=>0, "yourself"=>0, 
-      "yourselves"=>0, "zero"=>0, "rt"=>0
+      "yourselves"=>0, "zero"=>0, "rt"=>0, "like"=>0, "just"=>0,
       #add twitter specific hash words starting at rt
     }
     #drop any word in the stop_word_hash
@@ -55,10 +52,6 @@ class Search < ActiveRecord::Base
   #default is 40 words 
   def self.sort_word_count(hash, x=40)
     hash.sort_by { |word, count| count.to_i }.reverse.first(x)
-  end
-
-  def self.return_stop_words(hash)
-    #not in my MVP deploy but I should track these
   end
 
 end

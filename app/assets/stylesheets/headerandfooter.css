@@ -17,32 +17,24 @@ body {
 
 }
 
-h2 {
-  margin-top:35px;
-  font-size:25px;
-  font-weight: 300;
-  
+.navbar-default{
+      border-color:  #4099ff;
+    }
+
+.h1 {
+  text-align: center;
+}
+
+.twitter_logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
 
 .img-circle {
     border-radius: 50%;
     max-width: 80%;
     height: auto;
-}
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    border-radius: 25px;
-    color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 10px;
-    margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    cursor: pointer;
 }
 
 .hover_button {
@@ -56,30 +48,8 @@ h2 {
   border-color:#4099ff 
 }
 
-
-
 //footer//
-footer{
-      border-top: 0;
-      position: relative;
-      width: 100%;
-      height: 40px; 
-      bottom: 15px;
-      left: 0;
-      right:0;  
-      margin: 0;    
-      text-align:center;
-font-family: 'Muli', sans-serif;
-  font-weight: 400;
-    color:#fff;
-  font-size:12px;
-  line-height:10px;
-  padding-top: 40px;
-                                    
+
+.footer{
+  padding: 20px;
 }
-
-a { 
-  color: #3A5FCD;
-}
-
-

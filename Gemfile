@@ -5,10 +5,9 @@ ruby "2.2.3"
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
-# Use SCSS and Bourbon for stylesheets
+# Use SCSS and bootstrap for stylesheets
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
-gem 'bourbon'
-gem 'compass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views

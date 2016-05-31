@@ -40,7 +40,6 @@ class SearchesController < ApplicationController
     #@sorted_word_count = @sorted_word_count.sort_by { |word, count| count }.reverse
     #makes a new search object that can be passed along to the search controller
     @new_search = current_user.searches.new
-    binding.pry
   end
 
 

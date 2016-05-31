@@ -1,20 +1,14 @@
 <header>
-  <div class="left">
-    
-   <i class="fa fa-home fa-3x"></i>
-  
-</div> 
-  <div class="right">
+  <ul class="nav right">
     <% if current_user %> 
-        <div>
+        <li>
          <%= button_to "Log Out", user_destroy_path, class: "button hover_button" %>
-        </div>
-        <div>
+        </li>
+        <li>
           <%= tag('img', src: session[:image], class: "img-circle") %>
         </div>
       <% else %> 
         <i class="fa fa-user fa-3x"></i>
-    <% end %>  
-    
-  </div>
+    <% end %>    
+  </ul>
 </header>

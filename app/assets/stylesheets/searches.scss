@@ -2,6 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.tweets_container {
+    
+}
+
+.content_tweets {
+  max-width: 33%;
+  float: left;
+}
+
+.at_tweets {
+  max-width: 33%;
+}
+
+.hashtag_tweets {
+  max-width: 33%;
+  float: right;
+}
+
 .svg-wrapper{
     overflow: hidden;
 }
@@ -31,18 +49,3 @@
             border-bottom: 1px solid #d3d3d3;
             overflow: no-content;
         }
-.left
-    {
-    float: left;
-    width: 215px;  
-}
-.middle
-    {
-
-  width: 215px;   
-}
-.right
-    {
-  float: right;
-  width: 215px;  
-}

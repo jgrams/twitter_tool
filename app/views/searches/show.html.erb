@@ -1,17 +1,17 @@
-<div class="tweets_container" style="width: 100%;">
-  <div class="content_tweets">
+<div class="tweets_container" style="width: 80%;">
+  <div class="col-sm-4">
     <% find_max_and_min_word_count(@content_count) %>
     <% @content_count.each do |content| %>
       <%= nest_svg_divs(content, @range_minimum, @range_maximum) %>
     <% end %>
   </div> 
-  <div class="at_tweets">
+  <div class="col-sm-4">
     <% find_max_and_min_word_count(@at_tweet_count) %>
     <% @at_tweet_count.each do |at_tweet| %>
       <%= nest_svg_divs(at_tweet, @range_minimum, @range_maximum) %>
     <% end %>
   </div>
-  <div class="hashtag_tweets">
+  <div class="col-sm-4">
     <% find_max_and_min_word_count(@hashtag_count) %>
     <% @hashtag_count.each do |hashtag| %>
       <%= nest_svg_divs(hashtag, @range_minimum, @range_maximum) %>

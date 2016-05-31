@@ -1,14 +1,12 @@
-<header>
-  <ul class="nav right">
+<nav class="navbar navbar-default">
+  <ul class="nav nav-justified">
     <% if current_user %> 
         <li>
-         <%= button_to "Log Out", user_destroy_path, class: "button hover_button" %>
+          <%= tag('img', src: session[:image], class: "img-circle") %>
         </li>
         <li>
-          <%= tag('img', src: session[:image], class: "img-circle") %>
-        </div>
-      <% else %> 
-        <i class="fa fa-user fa-3x"></i>
+         <%= button_to "Log Out", user_destroy_path, class: "btn btn-default navbar-btn" %>
+        </li>
     <% end %>    
   </ul>
-</header>
+</nav>

@@ -8,14 +8,15 @@
 
 .svg-wrapper{
     overflow: hidden;
+    stroke:dark-grey;
+    stroke-width:10;
 }
 
 .svg-circle
         {
         height:100%;
         width:100%;
-        border-radius: 50%;
-        background:#fff;   
+        background:#fff;
 }
 
 
@@ -24,7 +25,7 @@
     x:50%;
     y:50%;
     fill:#0D0D0D;
-    font-size:3vw;
+    font-size:2vw;
     text-anchor:middle;
     alignment-baseline:middle;
 }

@@ -1,13 +1,15 @@
 /* BODY: 1. background color should be #4099ff, or should match first page. Word cloud should be 2. centered and have atleast 3. 100 px padding on top and bottom.  */
+$color-background: #00a9e7;
+
 
 body {
-    background: #4099ff;
+    background: $color-background;
 }
 
 //navbar//
 
 .navbar {
-    background: #4099ff;
+    background: $color-background;
     ul {
     margin: 0;
     padding: 0;
@@ -18,7 +20,7 @@ body {
 }
 
 .navbar-default{
-      border-color:  #4099ff;
+      border:  $color-background;
     }
 
 .h1 {

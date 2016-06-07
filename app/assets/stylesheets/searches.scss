@@ -4,6 +4,7 @@
 
 .tweets_container {
     margin: auto;
+    overflow: auto;
     }
 
 .svg-wrapper{
@@ -28,10 +29,3 @@
     text-anchor:middle;
     alignment-baseline:middle;
 }
-
-.header {
-            padding: 25px 10px;
-            width: 675px;
-            border-bottom: 1px solid #d3d3d3;
-            overflow: no-content;
-        }

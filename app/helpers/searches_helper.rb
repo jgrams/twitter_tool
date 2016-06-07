@@ -8,8 +8,8 @@ module SearchesHelper
   #returns a string of pixel size in format "Xpx" for the svg cicle to be built at, 
   #so maps to "80-300px" from whatever word count range there is
   def scale_word_count_to_pixel_size(item, range_minimum, range_maximum)
-    pixel_maximum = 300
-    pixel_minimum = 80
+    pixel_maximum = 250
+    pixel_minimum = 85
     ((item[1].to_f-range_minimum)/(range_maximum-range_minimum) * (pixel_maximum-pixel_minimum) + pixel_minimum).to_i.to_s.concat('px')
   end
 

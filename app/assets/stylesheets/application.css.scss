@@ -6,5 +6,12 @@
 @import "variables";
 @import "headerandfooter";
 
+$color-background: #00a9e7;
+
+body {
+    background: $color-background;
+    text-align: center
+}
+
 
 

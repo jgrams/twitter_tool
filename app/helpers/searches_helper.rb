@@ -17,7 +17,7 @@ module SearchesHelper
   def nest_svg_divs(item, range_minimum, range_maximum)
     pixel_size = scale_word_count_to_pixel_size(item, range_minimum, range_maximum)
     content_tag('svg', style: ["width: #{pixel_size};", "height: #{pixel_size};"], class: "svg-wrapper") do
-      tag('circle', class: "svg-circle", r:'90%', cx: '50%', cy: '50%', stroke: 'dark-grey', fill:'#bdbdbd').concat(
+      tag('circle', class: "svg-circle", r:'100%', cx: '50%', cy: '50%', stroke:"black").concat(
       content_tag('text', "#{item[0]}", class: "svg-text", x: "50%", y: "50%", lengthAdjust: "spacingAndGlyphs", textLength: "70%"))
     end
    end

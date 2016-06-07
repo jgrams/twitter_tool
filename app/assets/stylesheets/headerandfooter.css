@@ -1,7 +1,6 @@
 /* BODY: 1. background color should be #4099ff, or should match first page. Word cloud should be 2. centered and have atleast 3. 100 px padding on top and bottom.  */
 $color-background: #00a9e7;
 
-
 body {
     background: $color-background;
 }
@@ -9,9 +8,9 @@ body {
 //navbar//
 
 .navbar {
-    background: $color-background;
+    background: #fff;
     ul {
-    margin: 0;
+    margin: 10;
     padding: 0;
     list-style: none;
     }
@@ -34,13 +33,14 @@ body {
 }
 
 .img-circle {
-    border-radius: 50%;
-    max-width: 80%;
-    height: auto;
+  display:inline;
+  border-radius: 50%;
+  height: 700%;
+  width: 700%;
 }
 
 .hover_button {
-    background-color: white;
+    background-color: #fff;
     color: black;
     border: 2px solid #e7e7e7;
 }

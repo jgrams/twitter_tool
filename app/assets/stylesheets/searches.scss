@@ -7,16 +7,15 @@
     }
 
 .svg-wrapper{
-    overflow: hidden;
-    stroke:dark-grey;
-    stroke-width:10;
+    border-radius:50%;
 }
 
-.svg-circle
-        {
-        height:100%;
-        width:100%;
-        background:#fff;
+.svg-circle{
+    height:100%;
+    width:100%;
+    fill:#d3d3d3;
+    stroke:black;
+    stroke-width:3;
 }
 
 

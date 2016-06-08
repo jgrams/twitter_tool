@@ -10,13 +10,16 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
+          <% if @new_search %>
             <%= form_for @new_search do |s| %> 
             <%= s.text_field :username, class: "form-control", id: 'Search Bar' %>
             <%= s.submit "Find Someone Else", class: "btn btn-default", id: 'Submit Search' %>
             <% end %>
+          <% end %>  
           </div>
         </form>
         <ul class="nav navbar-nav navbar-right">
+          <li><%= button_to "Examples", example_show_path, class: "btn btn-default navbar-btn" %></li>
           <li><%= button_to "Log Out", user_destroy_path, class: "btn btn-default navbar-btn" %></li>
         </ul>
       </div><!-- /.navbar-collapse -->

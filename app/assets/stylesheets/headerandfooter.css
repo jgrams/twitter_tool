@@ -37,11 +37,12 @@ footer {
     margin-right: 12px;
     padding-right: 15px;
     padding-left: 2px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
   }
   small {
     float: left;
     font-size: 1.2em;
+    padding-left: 1em;
 
   }
   ul {

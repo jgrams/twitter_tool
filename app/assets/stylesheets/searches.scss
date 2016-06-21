@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$dark-blue-text: #000059;
+
 .tweets_container {
     margin: auto;
     overflow: auto;
@@ -28,4 +30,25 @@
     font-size:2vw;
     text-anchor:middle;
     alignment-baseline:middle;
+}
+
+.user-handle{
+    font-family: times, Times New Roman, times-roman, georgia, serif;
+    color: $dark-blue-text;
+    margin: 0;
+    padding: 10px 0px 6px 0px;
+    font-size: 51px;
+    line-height: 44px;
+    letter-spacing: -2px;
+    font-weight: bold;
+}
+
+.collum-header{
+    padding: 5px 0px 6px 0px;
+    font-family: Gill Sans, Verdana;
+    font-size: 11px;
+    line-height: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
 }

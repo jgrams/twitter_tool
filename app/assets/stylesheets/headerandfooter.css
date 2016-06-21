@@ -1,9 +1,11 @@
-/* BODY: 1. background color should be #4099ff, or should match first page. Word cloud should be 2. centered and have atleast 3. 100 px padding on top and bottom.  */
 
-$color-background: #00a9e7;
 
 //navbar//
-
+.navbar{
+  background-color: inherit;
+  border: transparent;
+  margin-top: .7em;
+}
 
 .twitter_logo {
   display: block;
@@ -21,12 +23,11 @@ $color-background: #00a9e7;
 //footer//
 
 footer {
-  margin-top: 45px;
+  margin-top: 65px;
   padding-top: 5px;
   margin-bottom: 5px;
-  color: $gray-light;
+  color: #2B4F81;
   a {
-    color: $gray;
     &:hover {
       color: $gray-darker;
     }

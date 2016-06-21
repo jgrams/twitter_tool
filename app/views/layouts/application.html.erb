@@ -10,7 +10,9 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= render 'layouts/header' %>
+    <% if current_user %>
+      <%= render 'layouts/header' %>
+      <% end %>
     <%= yield %>
     <%= render 'layouts/footer' %>
   </body>

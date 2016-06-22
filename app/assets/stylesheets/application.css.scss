@@ -5,7 +5,7 @@
 @import "users";
 @import "headerandfooter";
 
-$color-background: #2980b9;
+$color-background: #0B3460;
 
 html {
   -webkit-box-sizing: border-box;
@@ -21,6 +21,11 @@ html {
 body {
     background: $color-background;
     text-align: center
+}
+
+.btn{
+	background-color: #BCC7D3;
+	margin:.2em;
 }
 
 

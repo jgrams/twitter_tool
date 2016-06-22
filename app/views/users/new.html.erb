@@ -1,9 +1,12 @@
-<h1 class ="welcome_text" style="text-align:center">Twitter Words</h1>
-<%= image_tag "twitter.svg", class: "twitter_logo" %>
+<%= image_tag "twitter_words.svg", class: "twitter_logo" %>
 <div class="welcome_buttons">
-	<% %>
   <% if current_user %>
-    <%= search_bar %>
+    <% if @search %>
+      <% form_for @search, url: {action: "create", controller: "searches"} do |s| %>
+        <%= s.text_field :username, class: "form-control", id: 'Search Bar'%>
+        <%= s.submit "Find Someone Else", class: "btn btn-default", id: 'Submit Search' %>
+      <% end %>
+    <% end %> 
     <% else %>
       <a href = "/auth/twitter"><button type="button" class="btn btn-default" id="try">Log In</button></a>
   <% end %>

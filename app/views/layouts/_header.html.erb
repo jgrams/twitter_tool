@@ -2,15 +2,16 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <%= tag('img', src: session[:image], class: "user-image") %>
+      <%= tag('img', src: session[:image], class: "user-image", id: 'Profile Image') %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-        <% if @new_search %>
-          <%= form_for @new_search do |s| %> 
+        <% if @search %>
+          <% binding.pry %>
+          <%= form_for @search, url: {action: "create", controller: "searches"} do |s| %> 
           <%= s.text_field :username, class: "form-control", id: 'Search Bar' %>
           <%= s.submit "Find Someone Else", class: "btn btn-default", id: 'Submit Search' %>
           <% end %>

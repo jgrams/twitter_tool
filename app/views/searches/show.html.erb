@@ -1,5 +1,5 @@
 <div class="tweets_container">
-  <div class="user-handle"><%= @username %></div>
+  <div class="user-handle">@<%= @username %></div>
   <div class="col-sm-4">
     <div class="collum-header">Content</div>
     <% find_max_and_min_word_count(@content_count) %>
@@ -21,4 +21,12 @@
       <%= nest_svg_divs(hashtag, @range_minimum, @range_maximum) %>
     <% end %>
   </div>
+</div>
+<div class="search-div">
+  <% if @new_search %>
+    <%= form_for @new_search do |s| %> 
+    <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
+    <%= s.submit "Find Someone Else", class: "btn btn-default", id: 'Submit Search' %>
+    <% end %>
+  <% end %>  
 </div>

@@ -3,7 +3,8 @@ class SearchesController < ApplicationController
   def create
     @search = current_user.searches.new(search_params)
     if @search.save
-      redirect_to  search_show_path(search_params)
+      binding.pry
+      redirect_to search_show_path(search_params)
       else
         binding.pry
     end
@@ -37,10 +38,10 @@ class SearchesController < ApplicationController
     @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
     @content_count = Search.sort_word_count(search.word_count)
     @hashtag_count = Search.sort_word_count(search.hashtag_count)
-    @username = :username
+    @username = search.username
     #@sorted_word_count = @sorted_word_count.sort_by { |word, count| count }.reverse
     #makes a new search object that can be passed along to the search controller
-    @new_search = current_user.searches.new
+    @search = Search.new
   end
 
 

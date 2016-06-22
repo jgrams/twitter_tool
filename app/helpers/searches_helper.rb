@@ -1,4 +1,9 @@
 module SearchesHelper
+  #make a search bar for new tweets
+  def search_bar
+    
+  end
+
   #find the max and min word counts for array of arrays(sort_by performed on hashes with word count values)
   def find_max_and_min_word_count(object)
     @range_minimum = object[-1][1].to_i

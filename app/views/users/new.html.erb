@@ -1,6 +1,11 @@
 <h1 class ="welcome_text" style="text-align:center">Twitter Words</h1>
 <%= image_tag "twitter.svg", class: "twitter_logo" %>
 <div class="welcome_buttons">
-	<a href = "/auth/twitter"><button type="button" class="btn btn-default" id="try">Log In</button></a>
+	<% %>
+  <% if current_user %>
+    <%= search_bar %>
+    <% else %>
+      <a href = "/auth/twitter"><button type="button" class="btn btn-default" id="try">Log In</button></a>
+  <% end %>
   <a href = "/example/show"><button type="button" class="btn btn-default" id="examples">See Examples</button></a>
 <div>

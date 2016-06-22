@@ -2,7 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$dark-blue-text: #000059;
+$dark-blue-text: #121267;
+$dark-grey-text: #1F2121;
+
+.btn-default{
+    height:90%
+}
 
 .tweets_container {
     margin: auto;
@@ -46,6 +51,7 @@ $dark-blue-text: #000059;
 }
 
 .collum-header{
+    color: $dark-grey-text;
     padding: 10px 0px 10px 0px;
     font-family: Gill Sans, Verdana;
     font-size: 1.5em;
@@ -53,4 +59,12 @@ $dark-blue-text: #000059;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
+}
+
+.search-bar{
+    diplay:inline-block;
+    buffer-top: 5em;
+    margin:auto;
+    width:80%;
+    max-width:300px;
 }

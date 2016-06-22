@@ -10,15 +10,16 @@ $dark-blue-text: #000059;
     }
 
 .svg-wrapper{
-    border-radius:50%;
+    text-shadow: 0 .5px 1px rgba(0,0,0,.2);
+    fill:#d3d3d3;
+    display:inline-block;
 }
 
 .svg-circle{
     height:100%;
     width:100%;
-    fill:#d3d3d3;
-    stroke:black;
-    stroke-width:3;
+    border-radius:50%;
+    background-color:#bdc3c7;
 }
 
 
@@ -27,26 +28,27 @@ $dark-blue-text: #000059;
     x:50%;
     y:50%;
     fill:#0D0D0D;
-    font-size:2vw;
+    font-size:2em;
     text-anchor:middle;
     alignment-baseline:middle;
+    font-family: times, Times New Roman, times-roman, georgia, serif;
 }
 
 .user-handle{
     font-family: times, Times New Roman, times-roman, georgia, serif;
     color: $dark-blue-text;
     margin: 0;
-    padding: 10px 0px 6px 0px;
-    font-size: 51px;
+    padding: 20px 0px 20px 0px;
+    font-size: 3em;
     line-height: 44px;
     letter-spacing: -2px;
     font-weight: bold;
 }
 
 .collum-header{
-    padding: 5px 0px 6px 0px;
+    padding: 10px 0px 10px 0px;
     font-family: Gill Sans, Verdana;
-    font-size: 11px;
+    font-size: 1.5em;
     line-height: 14px;
     text-transform: uppercase;
     letter-spacing: 2px;

@@ -13,13 +13,15 @@ module SearchesHelper
     ((item[1].to_f-range_minimum)/(range_maximum-range_minimum) * (pixel_maximum-pixel_minimum) + pixel_minimum).to_i.to_s.concat('px')
   end
 
-  #create divs to contain the svg and text elements, curently passing in some style elements also
+  #create divs to contain the svg and text elements, curently passing in some a bunch of style elements also
+  #for formatttign the svg text and the width of the svgs
   def nest_svg_divs(item, range_minimum, range_maximum)
     pixel_size = scale_word_count_to_pixel_size(item, range_minimum, range_maximum)
-    content_tag('svg', style: ["width: #{pixel_size};", "height: #{pixel_size};"], class: "svg-wrapper") do
-      tag('circle', class: "svg-circle", r:'100%', cx: '50%', cy: '50%', stroke:"black").concat(
-      content_tag('text', "#{item[0]}", class: "svg-text", x: "50%", y: "50%", lengthAdjust: "spacingAndGlyphs", textLength: "70%"))
+    content_tag('div', style: ["width: #{pixel_size};", "height: #{pixel_size};"], class: "svg-wrapper") do
+      content_tag('svg', class: "svg-circle", viewBox: "10 10 90% 45%;", preserveAspectRatio: "xMidYMid meet;") do
+        content_tag('text', "#{item[0]}", class: "svg-text", x: "50%", y: "50%", textLength:"90%", lengthAdjust:"spacingAndGlyphs")
+      end
     end
-   end
+  end
 
 end

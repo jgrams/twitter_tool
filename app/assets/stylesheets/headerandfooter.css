@@ -10,7 +10,10 @@
 .twitter_logo {
   display: block;
   margin: auto;
-  max-width:90%;
+  max-width:85%;
+  min-width:30%;
+  padding-top:10px;
+  padding-bottom:10px;
 }
  .user-image {
   border-radius: 50%;

@@ -37,6 +37,7 @@ gem 'rest-client'
 gem 'httparty'
 gem 'omniauth-twitter'
 gem 'twitter'
+gem 'font-awesome-sass'
 
 gem 'rails_12factor', group: :production
 

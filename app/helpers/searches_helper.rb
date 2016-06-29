@@ -14,13 +14,20 @@ module SearchesHelper
     ((item[1].to_f-range_minimum)/(range_maximum-range_minimum) * (pixel_maximum-pixel_minimum) + pixel_minimum).to_i.to_s.concat('px')
   end
 
+  def text_length(item)
+    if item[0].length >= 10
+      item[0].length * 4
+    elsif item[0].length
+      item[0].length * 5
+    end
+  end
   #create divs to contain the svg and text elements, curently passing in some a bunch of style elements also
   #for formatttign the svg text and the width of the svgs
   def nest_svg_divs(item, range_minimum, range_maximum)
     pixel_size = scale_word_count_to_pixel_size(item, range_minimum, range_maximum)
     content_tag('div', style: ["width: #{pixel_size};", "height: #{pixel_size};"], class: "svg-wrapper") do
-      content_tag('svg', class: "svg-circle", viewBox: "10 10 90% 45%;", preserveAspectRatio: "xMidYMid meet;") do
-        content_tag('text', "#{item[0]}", class: "svg-text", x: "50%", y: "50%", textLength:"90%", lengthAdjust:"spacingAndGlyphs")
+      content_tag('svg', viewBox: "-#{text_length(item)} -8 #{text_length(item) * 2} 16", preserveAspectRatio: "xMidYMid meet", class: "svg-circle") do
+        content_tag('text', "#{item[0]}", class: "svg-text")
       end
     end
   end

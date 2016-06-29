@@ -15,33 +15,35 @@ $dark-grey-text: #1F2121;
     }
 
 .svg-wrapper{
-    text-shadow: 0 .5px 1px rgba(0,0,0,.2);
-    fill:#d3d3d3;
+    font-family: serif;
     display:inline-block;
+    border-radius:50%;
+    background-color:#bdc3c7;
+    overflow: visible;
+    text-shadow: 0 1px 1px rgba(0,0,0,.5);
+    font: bold Sans-Serif;
 }
+
 
 .svg-circle{
     height:100%;
     width:100%;
-    border-radius:50%;
-    background-color:#bdc3c7;
 }
 
 
 .svg-text
     {
-    x:50%;
-    y:50%;
-    fill:#0D0D0D;
-    font-size:2em;
+    fill:#000033;
+    stroke:#000033;
+    stroke-width:0;
     text-anchor:middle;
-    alignment-baseline:middle;
-    font-family: times, Times New Roman, times-roman, georgia, serif;
+    dominant-baseline:middle;
 }
 
 .user-handle{
     font-family: times, Times New Roman, times-roman, georgia, serif;
-    color: #DFCED6;
+    stroke: black 1px;
+    color:  #3498db;
     margin: 0;
     padding: 20px 0px 20px 0px;
     font-size: 3em;

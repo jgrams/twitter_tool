@@ -14,11 +14,10 @@
             <%= s.text_field :username, class: "navbar-form navbar-left", id: 'Search Bar' %>
             <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'>Searching...</i>"} %>
             <% end %>
-          <% end %>  
+          <% end %>
         </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= button_to "See Examples", example_show_path, method: "get", class: "btn btn-default navbar-btn" %></li>
         <li><%= button_to "Log Out", user_destroy_path, class: "btn btn-default navbar-btn" %></li>
       </ul>
     </div><!-- /.navbar-collapse -->

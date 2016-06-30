@@ -17,6 +17,8 @@ module SearchesHelper
   def text_length(item)
     if item[0].length >= 10
       item[0].length * 4
+    elsif item[0].length == 5  
+      item[0].length * 4
     elsif item[0].length
       item[0].length * 5
     end
@@ -27,7 +29,8 @@ module SearchesHelper
     pixel_size = scale_word_count_to_pixel_size(item, range_minimum, range_maximum)
     content_tag('div', style: ["width: #{pixel_size};", "height: #{pixel_size};"], class: "svg-wrapper") do
       content_tag('svg', viewBox: "-#{text_length(item)} -8 #{text_length(item) * 2} 16", preserveAspectRatio: "xMidYMid meet", class: "svg-circle") do
-        content_tag('text', "#{item[0]}", class: "svg-text")
+        content_tag('text', "#{item[0]}", class: "svg-text") +
+        content_tag('text', "#{item[1]}", class: "svg-text-hidden")
       end
     end
   end

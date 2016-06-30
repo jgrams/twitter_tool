@@ -9,7 +9,12 @@ $dark-grey-text: #1F2121;
     height:90%
 }
 
-.tweets_container {
+.tweets-container {
+    margin: auto;
+    overflow: auto;
+    }
+
+.tweets-info {
     margin: auto;
     overflow: auto;
     }
@@ -19,9 +24,8 @@ $dark-grey-text: #1F2121;
     display:inline-block;
     border-radius:50%;
     background-color:#bdc3c7;
-    overflow: visible;
-    text-shadow: 0 1px 1px rgba(0,0,0,.5);
-    font: bold Sans-Serif;
+    overflow: hidden;
+    text-shadow: 0 .5px .5px rgba(0,0,0,.5);
 }
 
 
@@ -30,14 +34,35 @@ $dark-grey-text: #1F2121;
     width:100%;
 }
 
-
-.svg-text
-    {
+.svg-text{    
     fill:#000033;
     stroke:#000033;
     stroke-width:0;
     text-anchor:middle;
     dominant-baseline:middle;
+}
+
+.svg-text-hidden, .svg-circle:hover .svg-text {
+    display: none;
+    fill:#000033;
+    stroke:#000033;
+    stroke-width:0;
+    text-anchor:middle;
+    dominant-baseline:middle;
+}
+.svg-circle:hover .svg-text-hidden {
+    display: block;
+    fill:#000033;
+    stroke:#000033;
+    stroke-width:0;
+    text-anchor:middle;
+    dominant-baseline:middle;
+}
+
+.svg-border-circle{
+    stroke:black; 
+    stroke-width:3;
+    fill-opacity:0;
 }
 
 .user-handle{
@@ -61,6 +86,14 @@ $dark-grey-text: #1F2121;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
+}
+.timeout-text{
+    font-size: 2em;
+    font-color: black;
+    stroke: black 1px;
+    font-family: times, Times New Roman, times-roman, georgia, serif;
+    margin:auto;
+    max-width:90%;
 }
 
 .search-bar{

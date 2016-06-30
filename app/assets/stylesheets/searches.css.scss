@@ -11,12 +11,12 @@ $dark-grey-text: #1F2121;
 
 .tweets-container {
     margin: auto;
+    height:auto;
     overflow: auto;
     }
 
 .tweets-info {
     margin: auto;
-    overflow: auto;
     }
 
 .svg-wrapper{
@@ -24,7 +24,6 @@ $dark-grey-text: #1F2121;
     display:inline-block;
     border-radius:50%;
     background-color:#bdc3c7;
-    overflow: hidden;
     text-shadow: 0 .5px .5px rgba(0,0,0,.5);
 }
 
@@ -68,7 +67,7 @@ $dark-grey-text: #1F2121;
 .user-handle{
     font-family: times, Times New Roman, times-roman, georgia, serif;
     stroke: black 1px;
-    color:  #3498db;
+    color:  black;
     margin: 0;
     padding: 20px 0px 20px 0px;
     font-size: 3em;
@@ -87,13 +86,17 @@ $dark-grey-text: #1F2121;
     letter-spacing: 2px;
     font-weight: bold;
 }
+
+.collum-header
+
 .timeout-text{
     font-size: 2em;
-    font-color: black;
+    color: black;
     stroke: black 1px;
     font-family: times, Times New Roman, times-roman, georgia, serif;
     margin:auto;
-    max-width:90%;
+    width:80%;
+    max-width:400px;
 }
 
 .search-bar{

@@ -1,6 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "require nprogress";
+@import "nprogress";
 @import "nprogress-bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
@@ -24,7 +24,8 @@ html {
 
 body {
     background: $color-background;
-    text-align: center
+    text-align: center;
+    margin: 0
 }
 
 .btn{

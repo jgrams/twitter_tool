@@ -1,3 +1,5 @@
+
+#should make the search a has and belongs to many relationship.
 class Search < ActiveRecord::Base
   belongs_to :user
   validates :user_id, presence:true

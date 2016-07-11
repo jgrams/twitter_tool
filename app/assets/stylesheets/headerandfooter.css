@@ -28,12 +28,10 @@
 //footer//
 
 footer {
-  margin-top: 65px;
-  padding-top: 5px;
-  margin-bottom: 5px;
+  padding-top: 65px;
+  padding-bottom: 5px;
   color: #2B4F81;
   width:100%;
-  bottom:0px;
   a {
     &:hover {
       color: $gray-darker;
@@ -45,16 +43,16 @@ footer {
     padding-right: 15px;
     padding-left: 2px;
     padding-bottom: 10px;
+    float: right;
   }
   small {
-    float:left;
     font-size: 1.2em;
     padding-left: 1em;
     padding-top: .5em;
+    float: left;
 
   }
   ul {
-    float: right;
     list-style: none;
     li {
       float: left;

@@ -41,7 +41,7 @@ $dark-grey-text: #1F2121;
     dominant-baseline:middle;
 }
 
-.svg-text-hidden, .svg-circle:hover .svg-text {
+.svg-text-hidden, .svg-circle:hover .svg-text, .svg-circle:active .svg-text  {
     display: none;
     fill:#000033;
     stroke:#000033;
@@ -49,7 +49,7 @@ $dark-grey-text: #1F2121;
     text-anchor:middle;
     dominant-baseline:middle;
 }
-.svg-circle:hover .svg-text-hidden {
+.svg-circle:hover .svg-text-hidden, .svg-circle:active .svg-text-hidden {
     display: block;
     fill:#000033;
     stroke:#000033;

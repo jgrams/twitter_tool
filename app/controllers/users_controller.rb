@@ -5,7 +5,7 @@ def create
   @user = User.find_or_create_from_auth_hash(auth_hash)
   session[:user_id] = @user.id
   session[:image] = @user.profile_image
-  redirect_to search_show_path
+  redirect_to search_user_show_path
 end
 
 def destroy

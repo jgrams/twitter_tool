@@ -21,11 +21,6 @@ class SearchesController < ApplicationController
     end
   end
 
-  def determine_empty(username)
-
-  end
-
-
   def collect_with_max_id(collection=[], max_id=nil, &block)
     response = yield(max_id)
     response.each {|tweet| collection.push(tweet.text)}
@@ -41,25 +36,26 @@ class SearchesController < ApplicationController
       current_user.twitter.user_timeline(determine_search(username))
       rescue
         redirect_to search_timeout_path
-        return
       end
     end
+  end 
 
   def show
-    binding.pry
     string_of_tweets = ""
     #collect the most recent 200 tweets fo search is supplied, or current user if no search supplied, returned as an array
     #if there is a username and it already has content, just look up the search saved in the database.
     #I should add a field where I record the users who have searched and 
-    if Search.find_by(username: params[:username]).username  && !Search.find_by(username: params[:username]).at_tweet_count.empty?
+    if Search.find_by(username: params[:username])
+      binding.pry
       search = Search.find_by(username: params[:username])
       @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
       @content_count = Search.sort_word_count(search.word_count)
       @hashtag_count = Search.sort_word_count(search.hashtag_count)
     #if there is no search that matches the username, we call on twitter
     else
-      search = current_user.searches.find_or_create_by(username: params[:username])
-      get_tweets(search)
+      search = current_user.searches.find_or_create_by username: (params[:username]||current_user.handle)
+      reply = get_tweets(search)
+      binding.pry
       #save the recieved word_count_hash into the database
       word_count_hash = Search.reduce(reply)
       #sanitize word_count from the model

@@ -26,14 +26,9 @@
 </div>
 <div class="search-div">
   <% if @search %>
-    <%= form_for @search do |s| %> 
+    <%= form_for @search, html: {action: "create"} do |s| %> 
     <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
-    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'>Searching...</i>"} %>
+    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'></i>"} %>
     <% end %>
-  <% end %>  
-</div>
-<div class="btn">
-  <% if not current_user %>
-    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'>Searching...</i>"} %>
   <% end %>  
 </div>

@@ -10,9 +10,9 @@
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <% if @search %>
-            <%= form_for @search do |s| %> 
+            <%= form_for @search, html: {action: "create"} do |s| %> 
             <%= s.text_field :username, class: "navbar-form navbar-left", id: 'Search Bar' %>
-            <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'>Searching...</i>"} %>
+            <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'></i>"} %>
             <% end %>
           <% end %>
         </div>

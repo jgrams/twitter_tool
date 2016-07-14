@@ -1,0 +1,37 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "nprogress";
+@import "nprogress-bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "tweets";
+@import "searches";
+@import "users";
+@import "headerandfooter";
+
+$color-background: #77C9D4;
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  }
+
+body {
+    background: $color-background;
+    text-align: center;
+    margin: 0
+}
+
+.btn{
+	background-color: #BCC7D3;
+	margin:.2em;
+}
+
+
+

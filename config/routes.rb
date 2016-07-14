@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   get 'search/timeout' => 'searches#timeout'
   get 'search/show' => 'searches#show'
   get 'search/user_show' => 'searches#user_show'
+  get 'search/twitter_show' => 'searches#twitter_show'
+  get 'search/database_show' => 'searches#database_show'
   get 'search/fail' => 'searches#fail' 
-  post 'searches' =>  'searches#create'
+  post 'search/create' =>  'searches#create'
   get 'example/show' => 'examples#show' 
 
 

@@ -1,12 +1,10 @@
 <%= image_tag "twitter_words.svg", class: "twitter_logo" %>
 <div class="welcome_buttons">
-  <% if current_user %>
     <% if @search %>
-      <% form_for @search, url: {action: "create", controller: "searches"} do |s| %>
+      <% form_for @search, url: search_create_path do |s| %>
         <%= s.text_field :username, class: "form-control", id: 'Search Bar'%>
         <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'>Searching...</i>"} %>
       <% end %>
-    <% end %> 
     <% else %>
       <a href = "/auth/twitter"><button type="button" class="btn btn-default" id="try">Log In</button></a>
   <% end %>

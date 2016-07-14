@@ -24,8 +24,6 @@ class User < ActiveRecord::Base
 	    config.access_token        = token
 	    config.access_token_secret = secret
 		end
-	rescue Twitter::Error::TooManyRequests
-		redirect_to user_timeout_path
 	end
 
 

@@ -3,6 +3,7 @@
 class Search < ActiveRecord::Base
   belongs_to :user
   validates :user_id, presence:true
+  validates :username, presence:true
 
   def self.reduce(long_tweet_string)
     #sanetize input with a regex and downcase and make an array of individual words
@@ -40,7 +41,7 @@ class Search < ActiveRecord::Base
   def self.at_tweets(hash)
     hash.select { |key, value| key[0] == "@" }
   end
-  #pulls out not @tweets, so content words to add further functionality to
+  #pulls out not @tweets, so content words
   def self.content_words(hash)
     hash.select { |key, value| key[0] != "@" && key[0] != "#"}
   end

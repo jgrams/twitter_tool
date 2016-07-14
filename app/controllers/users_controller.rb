@@ -13,6 +13,12 @@ def destroy
   redirect_to root_path
 end
 
+def new
+  if current_user
+    @search=Search.new
+  end
+end
+
 protected
 
 def auth_hash

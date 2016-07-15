@@ -3,13 +3,46 @@
 class Search < ActiveRecord::Base
   belongs_to :user
   validates :user_id, presence:true
-  validates :username, presence:true
+  validates :username, presence:true, unique:true
 
-  def self.reduce(long_tweet_string)
-    #sanetize input with a regex and downcase and make an array of individual words
-    all_words = long_tweet_string.gsub(/[^0-9a-z@#' ]/i, '').downcase.split(' ')
+  #fucntions are written in the order they are normally called, self.words_matching_regex
+  #is called first becuase I then sanitize punctuation
+
+  #takes a string and deletes words matching the regex (intended to catch links)
+  #then returns a hash like self.make_word_count_hash_from_string
+  #passed in regex matches http://, https://, and ftp:// : /^(http|https|ftp):////.*$/
+  #in addition, deletes matches from string by gsubbing them with ""
+  def self.words_matching_regex(string, regex, hash={})
+    #gsub modifies the string in place
+    string.gsub!(regex) do |match| 
+      #update the hash
+      hash.update(match => hash.fetch(match, 0) + 1) 
+      #replace with empty space
+      match = ''
+    end
+    #return the hash
+    hash
+  end
+
+  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
+  #squish replaces multiple space and newline characters with a single space
+  #then downcase the string and split on single whitespaces to return an array of words
+  def self.sanitize_punctuation(tweet_string)
+    tweet_string.gsub(/[^0-9a-z@#' ]/i, '').squish.downcase.split(' ')
+  end
+
+  def self.make_word_count_hash_from_string(array)
     #reduce the array of arrays created above into a hash with words as keys and counts as values
-    all_words.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
+    array.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
+  end
+
+
+
+  #looks in a hash (like the one made by self.make_word_count_hash_from_string) 
+  #and makes a hash with the words with their first character
+  #like the one made by self.make_word_count_hash_from_string
+  def self.words_starting_with_character(hash, character)
+    hash.select { |key, value| key[0] == character }
   end
 
   def self.drop_stop_words(hash)
@@ -37,18 +70,10 @@ class Search < ActiveRecord::Base
     #drop any word in the stop_word_hash
     hash.reject { |key, value| stop_word_hash[key] }
   end
-  #pulls out @tweets
-  def self.at_tweets(hash)
-    hash.select { |key, value| key[0] == "@" }
-  end
+
   #pulls out not @tweets, so content words
   def self.content_words(hash)
     hash.select { |key, value| key[0] != "@" && key[0] != "#"}
-  end
-
-  #pulls out hashtagged content
-  def self.hashtag_tweets(hash)
-    hash.select { |key, value| key[0] == "#" }
   end
 
   #Return an array of top x word_count objects converted to an array

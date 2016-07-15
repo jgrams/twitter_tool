@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516062152) do
+ActiveRecord::Schema.define(version: 20160715062440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160516062152) do
     t.hstore   "word_count",     default: {}, null: false
     t.hstore   "hashtag_count",  default: {}, null: false
     t.hstore   "at_tweet_count", default: {}, null: false
+    t.hstore   "link_count",     default: {}, null: false
   end
 
   create_table "tweets", force: :cascade do |t|

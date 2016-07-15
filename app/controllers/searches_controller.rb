@@ -1,8 +1,7 @@
 class SearchesController < ApplicationController
   
-  #check that the twitter user exists, then route correctly
+  #check that the search is a valid twitter user, then route to the correct controller
   def create
-    binding.pry
     if current_user.twitter.user(search_params[:username])
       if Search.find_by(username: search_params[:username])
         redirect_to search_database_show_path(search_params)
@@ -14,74 +13,48 @@ class SearchesController < ApplicationController
     end
   end
 
-  #show the user's tweets
-  def user_show
-    binding.pry    
-    if Search.find_by(username: current_user.handle)
-      search = Search.find_by(username: current_user.handle)
-      @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
-      @content_count = Search.sort_word_count(search.word_count)
-      @hashtag_count = Search.sort_word_count(search.hashtag_count)
-      @username = search.username
-    else
-      search = current_user.searches.new username: current_user.handle
-      reply = get_tweets(search.username)
-      #save the recieved word_count_hash into the database
-      word_count_hash = Search.sanitize_punctuation(reply)
-      #sanitize word_count from the model
-      word_count_hash = Search.drop_stop_words(word_count_hash)
-      #update database with categories I'm likely to perform analysis on
-      search.word_count = Search.content_words(word_count_hash)
-      search.hashtag_count = Search.words_starting_with_character(word_count_hash, "#")
-      search.at_tweet_count = Search.words_starting_with_character(word_count_hash, "@")
-      search.save
-      #returns an array of 20 objects sorted by word_count
-      @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
-      @content_count = Search.sort_word_count(search.word_count)
-      @hashtag_count = Search.sort_word_count(search.hashtag_count)
-      @username = search.username
-      #@sorted_word_count = @sorted_word_count.sort_by { |word, count| count }.reverse
-      #makes a new search object that can be passed along to the search controller
-    end
-    @search = Search.new
-  end
-
   #the user looked up a handle already in the database, so we just pull that
   def database_show
-    binding.pry
-    search = Search.find_by(username: params[:username])
-    @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
-    @content_count = Search.sort_word_count(search.word_count)
-    @hashtag_count = Search.sort_word_count(search.hashtag_count)
-    @username = search.username
+    #find the database object
+    search = Search.find_by(username: params[:username]||current_user.handle)
+    #sorts the hash and returns instance variables or sorted arrays for display
+    top_counts(search)
     @search = Search.new
   end
 
-  #the user looked up a handle already in the database, so we just pull that
+  #the search doesn't exist in the database, so we have to it from twitter and save it 
   def twitter_show
-    binding.pry
-    search = current_user.searches.new username: params[:username]
-    reply = get_tweets(params[:username])
-    #passed in regex matches "http://", "https://" with following letters, taken from 
-    #here: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-    search.link_count = Search.words_matching_regex(reply, /http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?)/
-    #save the recieved word_count_hash into the database
-    word_count_hash = Search.make_word_count_hash_from_string(Search.sanitize_punctuation(reply))
-    #sanitize word_count from the model
-    word_count_hash = Search.drop_stop_words(word_count_hash)
-    #update database with categories I'm likely to perform analysis on
-    search.word_count = Search.content_words(word_count_hash)
-    search.hashtag_count = Search.words_starting_with_character(word_count_hash, "#")
-    search.at_tweet_count = Search.words_starting_with_character(word_count_hash, "@")
+    #database object
+    search = current_user.searches.new username: params[:username]||current_user.handle
+    #a string of tweets from twitter
+    reply = get_tweets(params[:username]||current_user.handle)
+    #passed in regex matches "http://....", "https://..." 
+    #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
+    Search.words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/, search.link_count)
+    #sanitize input, and return an array of words
+    #then turn that arry into a hash of word counts with keys being unique words
+    reply = Search.word_hash_from_array(Search.sanitize_punctuation(reply))
+    #drop stop words from the hash
+    reply = Search.drop_stop_words(reply)
+    #pull out words not starting with "# or "@" and store them in the database object
+    Search.content_words(reply, search.word_count)
+    #pull out words starting with "# or "@" and store them in the database object
+    Search.words_starting_with_character(reply, "#", search.hashtag_count)
+    Search.words_starting_with_character(reply, "@", search.at_tweet_count)
     search.save
-    #returns an array of 20 objects sorted by word_count
+    #sorts the hash and returns instance variables or sorted arrays for display
+    top_counts(search)
+    #makes a new search object that can be passed along to the search controller
+    @search = Search.new
+  end
+
+  #make instance variables by turning hashes of word counts into sorted arrays
+  def top_counts(search, count=40)
     @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
     @content_count = Search.sort_word_count(search.word_count)
     @hashtag_count = Search.sort_word_count(search.hashtag_count)
+    @link_count = Search.sort_word_count(search.link_count, 6)
     @username = search.username
-    #@sorted_word_count = @sorted_word_count.sort_by { |word, count| count }.reverse
-    #makes a new search object that can be passed along to the search controller
-    @search = Search.new
   end
 
   def fail

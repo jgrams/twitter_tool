@@ -3,10 +3,7 @@
 class Search < ActiveRecord::Base
   belongs_to :user
   validates :user_id, presence:true
-  validates :username, presence:true, unique:true
-
-  #fucntions are written in the order they are normally called, self.words_matching_regex
-  #is called first becuase I then sanitize punctuation
+  validates :username, presence:true, uniqueness:true
 
   #takes a string and deletes words matching the regex (intended to catch links)
   #then returns a hash like self.make_word_count_hash_from_string
@@ -31,18 +28,16 @@ class Search < ActiveRecord::Base
     tweet_string.gsub(/[^0-9a-z@#' ]/i, '').squish.downcase.split(' ')
   end
 
-  def self.make_word_count_hash_from_string(array)
+  def self.word_hash_from_array(array, hash={})
     #reduce the array of arrays created above into a hash with words as keys and counts as values
-    array.reduce({}) { |memo, word| memo.update(word => memo.fetch(word, 0) + 1) }
+    array.reduce(hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) }
   end
-
-
 
   #looks in a hash (like the one made by self.make_word_count_hash_from_string) 
   #and makes a hash with the words with their first character
   #like the one made by self.make_word_count_hash_from_string
-  def self.words_starting_with_character(hash, character)
-    hash.select { |key, value| key[0] == character }
+  def self.words_starting_with_character(initial_hash, character, result_hash={})
+    result_hash = initial_hash.select { |key, value| key[0] == character }
   end
 
   def self.drop_stop_words(hash)
@@ -72,8 +67,8 @@ class Search < ActiveRecord::Base
   end
 
   #pulls out not @tweets, so content words
-  def self.content_words(hash)
-    hash.select { |key, value| key[0] != "@" && key[0] != "#"}
+  def self.content_words(initial_hash, result_hash={})
+    result_hash = initial_hash.select { |key, value| key[0] != "@" && key[0] != "#"}
   end
 
   #Return an array of top x word_count objects converted to an array

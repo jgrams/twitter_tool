@@ -4,8 +4,11 @@ def create
   #creates a new user hash with info from OAuth2 created in the model
   @user = User.find_or_create_from_auth_hash(auth_hash)
   session[:user_id] = @user.id
-  session[:image] = @user.profile_image
-  redirect_to search_user_show_path
+  if Search.find_by(username: @user.handle)
+    redirect_to search_database_show_path
+  else
+    redirect_to search_twitter_show_path
+  end
 end
 
 def destroy

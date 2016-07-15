@@ -3,24 +3,47 @@
   <!-- tweets-info is to be used eventually for num. tweets collected, date range etc-->
   <div class="tweets-info"></div>
   <div class="col-sm-4">
-    <div class="collum-header">Content</div>
-    <% find_max_and_min_word_count(@content_count) %>
-    <% @content_count.each do |content| %>
-      <%= nest_svg_divs(content, @range_minimum, @range_maximum) %>
+    <div class="collum-header">Words</div>
+    <% if @content_count %>
+        <% find_max_and_min_word_count(@content_count) %>
+        <% @content_count.each do |content| %>
+          <%= nest_svg_divs(content, @range_minimum, @range_maximum) %>
+      <% end %>
+    <% else %>
+      <div class="no-content">No words found.</div>
     <% end %>
   </div> 
   <div class="col-sm-4">
     <div class="collum-header">Interactions</div>
-    <% find_max_and_min_word_count(@at_tweet_count) %>
-    <% @at_tweet_count.each do |at_tweet| %>
-      <%= nest_svg_divs(at_tweet, @range_minimum, @range_maximum) %>
+    <% if @at_tweet_count %>
+      <% find_max_and_min_word_count(@at_tweet_count) %>
+      <% @at_tweet_count.each do |at_tweet| %>
+        <%= nest_svg_divs(at_tweet, @range_minimum, @range_maximum) %>
+      <% end %>
+    <% else %>
+      <div class="no-content">No interactions found.</div>
     <% end %>
   </div>
   <div class="col-sm-4">    
     <div class="collum-header">Hashtags</div>
-    <% find_max_and_min_word_count(@hashtag_count) %>
-    <% @hashtag_count.each do |hashtag| %>
-      <%= nest_svg_divs(hashtag, @range_minimum, @range_maximum) %>
+    <% if @hashtag_count %>
+      <% find_max_and_min_word_count(@hashtag_count) %>
+      <% @hashtag_count.each do |hashtag| %>
+        <%= nest_svg_divs(hashtag, @range_minimum, @range_maximum) %>
+      <% end %>
+    <% else %>
+      <div class="no-content">No content found.</div>
+    <% end %>
+  </div>
+  <div class="col-sm-12">
+    <div class="collum-header">Links</div>
+    <% if @link_count %>
+      <% find_max_and_min_word_count(@link_count, 6) %>
+      <% @link_count.each do |link| %>
+        <%= nest_svg_divs(link, @range_minimum, @range_maximum) %>
+      <% end %>
+    <% else %>
+      <div class="no-content">No links found.</div>
     <% end %>
   </div>
 </div>

@@ -28,24 +28,31 @@ class SearchesController < ApplicationController
     search = current_user.searches.new username: params[:username]||current_user.handle
     #a string of tweets from twitter
     reply = get_tweets(params[:username]||current_user.handle)
-    #passed in regex matches "http://....", "https://..." 
-    #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-    Search.words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/, search.link_count)
-    #sanitize input, and return an array of words
-    #then turn that arry into a hash of word counts with keys being unique words
-    reply = Search.word_hash_from_array(Search.sanitize_punctuation(reply))
-    #drop stop words from the hash
-    reply = Search.drop_stop_words(reply)
-    #pull out words not starting with "# or "@" and store them in the database object
-    Search.content_words(reply, search.word_count)
-    #pull out words starting with "# or "@" and store them in the database object
-    Search.words_starting_with_character(reply, "#", search.hashtag_count)
-    Search.words_starting_with_character(reply, "@", search.at_tweet_count)
-    search.save
-    #sorts the hash and returns instance variables or sorted arrays for display
-    top_counts(search)
-    #makes a new search object that can be passed along to the search controller
-    @search = Search.new
+    if !reply.empty?
+      #passed in regex matches "http://....", "https://..." 
+      #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
+      Search.words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/, search.link_count)
+      #sanitize input, and split the string on spaces
+      #then turn that arry into a hash of word counts with keys being unique words
+      reply = Search.word_hash_from_array(Search.sanitize_punctuation(reply).split(' '))
+      #placement of this line is important because it's before anything gets dropped
+      #cool stat is currently not being used
+      @unique_words = reply.count
+      #drop stop words from the hash
+      reply = Search.drop_stop_words(reply)
+      #pull out words not starting with "# or "@" and store them in the database object
+      search.word_count = Search.content_words(reply)
+      #pull out words starting with "# or "@" and store them in the database object
+      search.hashtag_count = Search.words_starting_with_character(reply, "#")
+      search.at_tweet_count = Search.words_starting_with_character(reply, "@")
+      search.save
+      #sorts the hash and returns instance variables or sorted arrays for display
+      top_counts(search)
+      #makes a new search object that can be passed along to the search controller
+      @search = Search.new
+    else
+      redirect_to search_fail_path
+    end
   end
 
   #make instance variables by turning hashes of word counts into sorted arrays
@@ -53,7 +60,7 @@ class SearchesController < ApplicationController
     @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
     @content_count = Search.sort_word_count(search.word_count)
     @hashtag_count = Search.sort_word_count(search.hashtag_count)
-    @link_count = Search.sort_word_count(search.link_count, 6)
+    @link_count = Search.sort_word_count(search.link_count, 8)
     @username = search.username
   end
 

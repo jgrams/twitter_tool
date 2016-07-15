@@ -1,3 +1,11 @@
+<div class="search-div">
+  <% if @search %>
+    <%= form_for @search, url: search_create_path do |s| %> 
+    <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
+    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'></i>"} %>
+    <% end %>
+  <% end %>  
+</div>
 <div class="tweets-container">
   <div class="user-handle">@<%= @username %></div>
   <!-- tweets-info is to be used eventually for num. tweets collected, date range etc-->
@@ -38,20 +46,12 @@
   <div class="col-sm-12">
     <div class="collum-header">Links</div>
     <% if @link_count %>
-      <% find_max_and_min_word_count(@link_count, 6) %>
+      <% find_max_and_min_word_count(@link_count) %>
       <% @link_count.each do |link| %>
-        <%= nest_svg_divs(link, @range_minimum, @range_maximum) %>
+        <%= nest_linking_svg_divs(link, @range_minimum, @range_maximum, 250, 175) %>
       <% end %>
     <% else %>
       <div class="no-content">No links found.</div>
     <% end %>
   </div>
-</div>
-<div class="search-div">
-  <% if @search %>
-    <%= form_for @search, url: search_create_path do |s| %> 
-    <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
-    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'></i>"} %>
-    <% end %>
-  <% end %>  
 </div>

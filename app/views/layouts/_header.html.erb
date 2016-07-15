@@ -7,16 +7,6 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group, search-div">
-          <% if @search %>
-            <%= form_for @search, url: search_create_path do |s| %> 
-            <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
-            <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'></i>"} %>
-            <% end %>
-          <% end %>  
-        </div>
-      </form>
       <ul class="nav navbar-nav navbar-right">
         <li><%= button_to "Log Out", user_destroy_path, class: "btn btn-default navbar-btn" %></li>
       </ul>

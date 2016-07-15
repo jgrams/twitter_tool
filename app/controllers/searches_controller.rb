@@ -31,7 +31,7 @@ class SearchesController < ApplicationController
     if !reply.empty?
       #passed in regex matches "http://....", "https://..." 
       #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-      Search.words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/, search.link_count)
+      search.link_count = Search.words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/)
       #sanitize input, and split the string on spaces
       #then turn that arry into a hash of word counts with keys being unique words
       reply = Search.word_hash_from_array(Search.sanitize_punctuation(reply).split(' '))

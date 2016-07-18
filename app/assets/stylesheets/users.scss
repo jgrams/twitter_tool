@@ -2,14 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.welcome-page{
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vw;
+
+}
+
 .welcome_buttons{
 	position:relative;
 	text-align:center;
 	padding:40px;
-}
-
-.twitter_logo{
-	padding-top:80px;
 }
 
 .welcome_text{
@@ -19,4 +24,112 @@
 
 .btn-default{
 	text-align:center;
+}
+
+.button{
+  cursor: pointer;
+  width: auto;
+  border: 1px solid transparent;
+  box-shadow: none !important;
+  font-weight: 500;
+  font-size: .75rem;
+  line-height: 2.5rem;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+  height: 2.5rem;
+  vertical-align: middle;
+  padding: 0 1.25rem;
+  border-radius: 1.25rem;
+}
+
+.button:hover:not(.disabled){
+  background-color: #071006;
+  border-color:transparent;
+  color:#ECF6F8;
+}
+
+.button.outline{
+  background-color: #3f913b;
+  border-color: #ECF6F8;
+  color: #ECF6F8;
+  border:0px;
+}
+
+.welcome-page-links{
+  margin-top:1.5em;
+  padding: 0;
+  list-style:none;
+}
+
+.welcome-page-buttons{
+  margin-top: .625rem; 
+}
+
+.left-welcome-panel{
+  float: left;
+  height: 100%;
+  width: 37%;
+  background-color:#F49D00;
+  overflow: hidden;
+  max-width: 390px;
+}
+
+.text-panel{
+  padding:40px;
+  width: 100%;
+  line-height: 1.375rem;
+  font-weight: 300;
+  box-sizing: border-box;
+}
+
+.welcome-header{
+  color:#153013;
+  font-size: 2.5rem;
+  line-height: 2.75rem;
+  margin: 2rem 0 0 0;
+  max-width: 90%;
+  text-align: left;
+}
+
+.welcome-header::after, .hr-accent-sm::after{
+  width: 7.5rem;
+  height: 0;
+  border: 2px solid;
+  border-color: inherit;
+  border-radius: 2px;
+  content: "";
+  display: block;
+  margin: 1rem 0 1.25rem 0;
+}
+
+.welcome-text{
+  max-width: 90%;
+  text-align: left;
+  color:#153013;
+}
+
+
+.right-welcome-panel{
+  height: 100%;
+  background-color: #B61F2E;
+  flex:1;
+}
+
+.welcome-image-wrapper{
+  width:100%;
+  height: 100%;
+}
+
+.welcome-image{
+  margin-top: 150px;
+  display:block;
+  margin:auto;
+  width:700px;
+  max-width:100%;
+  max-height:100%;
 }

@@ -1,12 +1,39 @@
-<%= image_tag "twitter_words.svg", class: "twitter_logo" %>
-<div class="welcome_buttons">
-    <% if @search %>
-      <% form_for @search, url: search_create_path do |s| %>
-        <%= s.text_field :username, class: "form-control", id: 'Search Bar'%>
-        <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'>Searching...</i>"} %>
-      <% end %>
-    <% else %>
-      <a href = "/auth/twitter"><button type="button" class="btn btn-default" id="try">Log In</button></a>
-  <% end %>
-  <a href = "/example/show"><button type="button" class="btn btn-default" id="examples">See Examples</button></a>
-</div>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Twitter, Word Usage, Twitter Analysis">
+    <meta name="description" content="Twitter World Analysis takes tweets and breaks down your word usage, interaction count, and use of hashtags so you can see the issues and people most important to you.">
+    <title>Twitter Word Analysis</title>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="welcome-page">
+      <div class="left-welcome-panel">
+        <div class="text-panel">
+          <h1 class="welcome-header">Twitter Analysis</h1>
+          <p class="welcome-text">Break down your Twitter usage to see the emotions, issues, and people most important to you.</p>
+          <ul class="welcome-page-links">
+            <li class="welcome-page-buttons">
+              <a class="button outline" href=#>Log In</a>
+            </li> 
+            <li class="welcome-page-buttons">
+              <a class="button outline" href=#>See Examples</a>
+            </li>
+            <li class="welcome-page-buttons">
+              <a class="button outline" href=#>John's Twitter</a>
+            </li> 
+          </ul>
+        </div>
+      </div>
+      <div class="right-welcome-panel">
+        <div class="welcome-image-wrapper">
+          <%= image_tag "twitter_words.svg", class: "welcome-image", alt: "Twitter Words Logo" %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

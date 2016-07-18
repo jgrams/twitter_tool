@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  layout "main", except: [:new]
 
 def create
   #creates a new user hash with info from OAuth2 created in the model
@@ -17,6 +18,7 @@ def destroy
 end
 
 def new
+  render layout: false
   if current_user
     @search=Search.new
   end

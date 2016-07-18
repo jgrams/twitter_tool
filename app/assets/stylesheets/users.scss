@@ -7,8 +7,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100vw;
-
+  height: 100%;
 }
 
 .welcome_buttons{
@@ -72,11 +71,11 @@
 
 .left-welcome-panel{
   float: left;
-  height: 100%;
+  min-height: 100%;
   width: 37%;
   background-color:#F49D00;
   overflow: hidden;
-  max-width: 390px;
+  max-width: 300px;
 }
 
 .text-panel{
@@ -115,7 +114,7 @@
 
 
 .right-welcome-panel{
-  height: 100%;
+  min-height: 100%;
   background-color: #B61F2E;
   flex:1;
 }
@@ -126,10 +125,29 @@
 }
 
 .welcome-image{
-  margin-top: 150px;
+  padding-top: 35px;
   display:block;
   margin:auto;
   width:700px;
-  max-width:100%;
-  max-height:100%;
+  max-width:85%;
+  max-height:85%;
+}
+
+/* Small screens */
+@media all and (max-width: 500px) {
+  .welcome-page {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+
+  .left-welcome-panel{
+  	flex: 1;
+  	max-width:100%;
+  	width: 100%;
+  }
+  .right-welcome-panel{
+  min-height: 100%;
+  background-color: #B61F2E;
+  flex:1;
+}
 }

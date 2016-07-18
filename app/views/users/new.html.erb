@@ -18,13 +18,13 @@
           <p class="welcome-text">Break down your Twitter usage to see the emotions, issues, and people most important to you.</p>
           <ul class="welcome-page-links">
             <li class="welcome-page-buttons">
-              <a class="button outline" href=#>Log In</a>
+              <%= link_to "Log In", "/auth/twitter", class: "button outline" %>
             </li> 
             <li class="welcome-page-buttons">
-              <a class="button outline" href=#>See Examples</a>
+              <%= link_to "See Examples", example_show_path, class: "button outline" %>
             </li>
             <li class="welcome-page-buttons">
-              <a class="button outline" href=#>John's Twitter</a>
+              <a class="button outline" href="https://twitter.com/pearloscopy">John's Twitter</a>
             </li> 
           </ul>
         </div>

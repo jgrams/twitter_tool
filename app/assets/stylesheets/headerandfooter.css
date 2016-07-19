@@ -32,6 +32,7 @@ footer {
   padding-bottom: 5px;
   color: #2B4F81;
   width:100%;
+  clear:both;
   a {
     &:hover {
       color: $gray-darker;

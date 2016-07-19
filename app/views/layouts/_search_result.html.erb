@@ -2,12 +2,12 @@
   <% if @search %>
     <%= form_for @search, url: search_create_path do |s| %> 
     <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
-    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin fa-3x fa-fw'></i>"} %>
+    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Searching..."} %>
     <% end %>
   <% end %>  
 </div>
 <div class="tweets-container">
-  <div class="user-handle">@<%= @username %></div>
+  <div class="user-handle"><%= @username %></div>
   <!-- tweets-info is to be used eventually for num. tweets collected, date range etc-->
   <div class="tweets-info"></div>
   <div class="col-sm-4">

@@ -8,6 +8,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+        <li><%= button_to "See Examples", example_show_path, method: "get", class: "btn btn-default navbar-btn" %></li>
         <li><%= button_to "Log Out", user_destroy_path, class: "btn btn-default navbar-btn" %></li>
       </ul>
     </div><!-- /.navbar-collapse -->

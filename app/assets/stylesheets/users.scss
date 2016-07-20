@@ -6,8 +6,8 @@
   text-align: left;
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 100%;
+  height:auto;
+  min-height: 100%;
 }
 
 .welcome_buttons{
@@ -125,12 +125,12 @@
 }
 
 .welcome-image{
-  padding-top: 35px;
+  padding: 35px 0px 35px 0px;
   display:block;
   margin:auto;
-  width:700px;
-  max-width:85%;
-  max-height:85%;
+  width:625px;
+  max-width:75%;
+  max-height:75%;
 }
 
 /* Small screens */
@@ -142,8 +142,8 @@
 
   .left-welcome-panel{
   	flex: 1;
-  	max-width:100%;
   	width: 100%;
+    max-width: 100%
   }
   .right-welcome-panel{
   min-height: 100%;

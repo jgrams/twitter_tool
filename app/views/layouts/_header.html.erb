@@ -2,9 +2,10 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <%= tag('img', src: current_user.profile_image, class: "user-image", id: 'Profile Image') %>
+      <%= link_to user_new_path do %>
+        <%= tag('img', src: current_user.profile_image, class: "user-image", id: 'Profile Image') %>
+      <% end %>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">

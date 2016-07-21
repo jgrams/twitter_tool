@@ -18,7 +18,11 @@
           <p class="welcome-text">Break down your Twitter usage to see the emotions, issues, and people most important to you.</p>
           <ul class="welcome-page-links">
             <li class="welcome-page-buttons">
-              <%= link_to "Log In", "/auth/twitter", class: "button outline-welcome" %>
+              <% if current_user %>
+                <%= link_to "Log Out", user_destroy_path, class: "button outline-welcome" %>
+              <% else %>
+                <%= link_to "Log In", "/auth/twitter", class: "button outline-welcome" %>
+              <% end %>
             </li> 
             <li class="welcome-page-buttons">
               <%= link_to "See Examples", example_show_path, class: "button outline-welcome" %>

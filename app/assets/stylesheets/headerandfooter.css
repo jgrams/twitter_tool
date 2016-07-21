@@ -25,6 +25,13 @@
   margin-right: 1.5em;
 }
 
+.header-logo{
+  max-width:60px;
+  max-height:60px;
+  margin-left: 4em;
+}
+
+
 //footer//
 
 footer {

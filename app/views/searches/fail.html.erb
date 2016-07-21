@@ -1,1 +1,11 @@
-<% @username %> is not a recognized twitter user, or they haven't tweeted anything.
+<div class="error-text">
+  <%= @username %> is not a recognized twitter user, or they have a protected account.
+</div>
+<div class="search-div">
+  <% if @search %>
+    <%= form_for @search, url: search_create_path do |s| %> 
+    <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
+    <%= s.button "Find Someone Else", class: "button outline-search", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Searching..."} %>
+    <% end %>
+  <% end %>  
+</div>

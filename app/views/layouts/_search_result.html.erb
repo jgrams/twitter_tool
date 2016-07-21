@@ -2,7 +2,7 @@
   <% if @search %>
     <%= form_for @search, url: search_create_path do |s| %> 
     <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>
-    <%= s.button "Find Someone Else", class: "btn btn-default", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Searching..."} %>
+    <%= s.button "Find Someone Else", class: "button outline-search", id: 'Submit Search' , data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Searching..."} %>
     <% end %>
   <% end %>  
 </div>

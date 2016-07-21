@@ -26,7 +26,7 @@ module SearchesHelper
       item[0].length * 5
     end
   end
-  #create divs to contain the svg and text elements, curently passing in some a bunch of style elements also
+  #create divs to contain the svg and text elements, passing in width and heigt and the viewbox
   #for formatttign the svg text and the width of the svgs
   def nest_svg_divs(item, range_minimum, range_maximum, pixel_maximum=250, pixel_minimum=85)
     pixel_size = scale_word_count_to_pixel_size(item, range_minimum, range_maximum, pixel_maximum, pixel_minimum)
@@ -42,8 +42,11 @@ module SearchesHelper
   def nest_linking_svg_divs(item, range_minimum, range_maximum, pixel_maximum=250, pixel_minimum=85)
     pixel_size = scale_word_count_to_pixel_size(item, range_minimum, range_maximum, pixel_maximum, pixel_minimum)
     content_tag('div', style: ["width: #{pixel_size};", "height: #{pixel_size};"], class: "svg-wrapper") do
-      content_tag('svg', viewBox: "-#{text_length(item)} -8 #{text_length(item) * 2} 16", preserveAspectRatio: "xMidYMid meet", class: "svg-circle") do
-        content_tag('text', "#{item[0]}", class: "svg-link")
+      link_to item[0], alt: item[0], target: "_blank" do 
+        content_tag('svg', viewBox: "-#{text_length(item)} -8 #{text_length(item) * 2} 16", preserveAspectRatio: "xMidYMid meet", class: "svg-circle") do
+          content_tag('text', "#{item[0]}", class: "svg-text") +
+          content_tag('text', "#{item[1]}", class: "svg-text-hidden")
+        end
       end
     end
   end

@@ -8,9 +8,9 @@ class SearchesController < ApplicationController
       else
         redirect_to search_twitter_show_path(search_params)
       end
-    else
-      redirect_to search_fail_path(search_params)
     end
+  rescue Twitter::Error
+    redirect_to search_fail_path(search_params)
   end
 
   #the user looked up a handle already in the database, so we just pull that
@@ -53,6 +53,8 @@ class SearchesController < ApplicationController
     else
       redirect_to search_fail_path
     end
+  rescue Twitter::Error
+    redirect_to search_fail_path(params)
   end
 
   #make instance variables by turning hashes of word counts into sorted arrays
@@ -66,7 +68,8 @@ class SearchesController < ApplicationController
 
   #fail page for error handling and if the username doesn't exist or there were no tweets
   def fail
-    @username = search_params[:username]
+    @username = params[:username]
+    @search = Search.new
   end
 
   #the next two functions collect the tweet from twitter

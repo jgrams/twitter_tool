@@ -64,6 +64,7 @@ class SearchesController < ApplicationController
     @username = search.username
   end
 
+  #fail page for error handling and if the username doesn't exist or there were no tweets
   def fail
     @username = search_params[:username]
   end

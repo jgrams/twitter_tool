@@ -1,7 +1,7 @@
 <% if not current_user %>
   <%= render 'layouts/no_user_header' %>
 <% end %>
-<div class="user-handle">@<%= @example.username %></div>
+<div class="user-handle"><%= @example.username %></div>
 <div class="tweets-container">
   <div class="col-sm-4" collum-header>
     <div class="collum-header">Content</div>

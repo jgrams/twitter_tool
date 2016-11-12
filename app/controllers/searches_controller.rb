@@ -22,12 +22,14 @@ class SearchesController < ApplicationController
     @search = Search.new
   end
 
-  #the search doesn't exist in the database, so we have to it from twitter and save it 
+  #get tweets from twitter and save them 
   def twitter_show
     #database object
     search = current_user.searches.new username: params[:username]||current_user.handle
     #a string of tweets from twitter
+    binding.pry
     reply = get_tweets(params[:username]||current_user.handle)
+    binding.pry
     if !reply.empty?
       #passed in regex matches "http://....", "https://..." 
       #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
@@ -49,6 +51,7 @@ class SearchesController < ApplicationController
       #sorts the hash and returns instance variables or sorted arrays for display
       top_counts(search)
       #makes a new search object that can be passed along to the search controller
+      binding.pry
       @search = Search.new
     else
       redirect_to search_fail_path
@@ -72,13 +75,19 @@ class SearchesController < ApplicationController
     @search = Search.new
   end
 
-  #the next two functions collect the tweet from twitter
-  def collect_with_max_id(collection="", max_id=nil, &block)
+  #loop over tweets to get the max number, where I choose what to pull out of the twitter
+  #returns an array of hashes composed on various objects 
+  #(currently, Time, Num, String, and Adressable:URL)
+  def collect_with_max_id(collection=[], max_id=nil, &block)
     response = yield(max_id)
-    response.each{|tweet| collection << (tweet.text + " ")}
+    response.each do |tweet| 
+      collection << { id: tweet.id, url: tweet.url, created_at: tweet.created_at, text: tweet.text}
+    end
     response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)
   end
 
+  #returns an array of 200 Twitter::Tweet objects
+  #Twitter:tweet is a hash
   def get_tweets(username)
     collect_with_max_id do |max_id|
       options = {count: 200, include_rts: true}

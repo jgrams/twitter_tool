@@ -13,7 +13,8 @@ class SearchesController < ApplicationController
     redirect_to search_fail_path(search_params)
   end
 
-  #the user looked up a handle already in the database, so we just pull that
+  #the user looked up a handle already in the database, so 
+  #return: database object oh handle
   def database_show
     #find the database object
     search = Search.find_by(username: params[:username]||current_user.handle)
@@ -24,16 +25,17 @@ class SearchesController < ApplicationController
 
   #get tweets from twitter and save them 
   def twitter_show
-    #database object
+    #database object for the searched user handle
     search = current_user.searches.new username: params[:username]||current_user.handle
-    #a string of tweets from twitter
-    binding.pry
+    #a array of hashed tweets from twitter via twitter gem
     reply = get_tweets(params[:username]||current_user.handle)
     binding.pry
     if !reply.empty?
+      tweet_text = reply.text
       #passed in regex matches "http://....", "https://..." 
       #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
       search.link_count = Search.words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/)
+      binding.pry
       #sanitize input, and split the string on spaces
       #then turn that arry into a hash of word counts with keys being unique words
       reply = Search.word_hash_from_array(Search.sanitize_punctuation(reply).split(' '))
@@ -60,6 +62,36 @@ class SearchesController < ApplicationController
     redirect_to search_fail_path(params)
   end
 
+  #returns an array of 200 Twitter::Tweet objects
+  #Twitter:tweet is a hash
+  def get_tweets(username)
+    collect_with_max_id do |max_id|
+      options = {count: 200, include_rts: true}
+      options[:max_id] = max_id unless max_id.nil?
+      #puts in a search or the logged in user's name to the twitter api
+      current_user.twitter.user_timeline(username, options)
+    end
+  end
+
+  #loop over tweets to get the max number, where I choose what to pull out of the twitter
+  #returns an array of hashes composed on various objects 
+  #(currently Time, Num, String)
+  def collect_with_max_id(collection=[], max_id=nil, &block)
+    response = yield(max_id)
+    response.each do |tweet|
+      collection << { 
+        id: tweet.id, 
+        url: tweet.url, 
+        created_at: tweet.created_at, 
+        text: tweet.text, 
+        linked_media: tweet.media.map { |e|  e.url.to_s }, 
+        linked_urls: tweet.urls.map { |e|  e.expanded_url.to_s },
+      }
+    end
+    response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)
+  end
+
+
   #make instance variables by turning hashes of word counts into sorted arrays
   def top_counts(search, count=40)
     @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
@@ -75,27 +107,8 @@ class SearchesController < ApplicationController
     @search = Search.new
   end
 
-  #loop over tweets to get the max number, where I choose what to pull out of the twitter
-  #returns an array of hashes composed on various objects 
-  #(currently, Time, Num, String, and Adressable:URL)
-  def collect_with_max_id(collection=[], max_id=nil, &block)
-    response = yield(max_id)
-    response.each do |tweet| 
-      collection << { id: tweet.id, url: tweet.url, created_at: tweet.created_at, text: tweet.text}
-    end
-    response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)
-  end
 
-  #returns an array of 200 Twitter::Tweet objects
-  #Twitter:tweet is a hash
-  def get_tweets(username)
-    collect_with_max_id do |max_id|
-      options = {count: 200, include_rts: true}
-      options[:max_id] = max_id unless max_id.nil?
-      #puts in a search or the logged in user's name to the twitter api
-      current_user.twitter.user_timeline(username, options)
-    end
-  end
+
 
 
   private

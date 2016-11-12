@@ -10,6 +10,7 @@ class Search < ActiveRecord::Base
   #passed in regex matches http://, https://, and ftp:// : /^(http|https|ftp):////.*$/
   #in addition, deletes matches from string by gsubbing them with ""
   def self.words_matching_regex(string, regex, hash={})
+    binding.pry
     #gsub modifies the string in place
     string.gsub!(regex) do |match| 
       #update the hash
@@ -20,25 +21,36 @@ class Search < ActiveRecord::Base
     #return the hash
     #the reject is hacky bullcrap designed to drop too short urls, this fix should be in the regex
     hash.reject { |key, value| key.length <= 12 }
+    binding.pry
   end
 
+  #agument: hash of hashes
+  #returns: hash of hashes with sanetized_text field added 
   #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
   #squish replaces multiple space and newline characters with a single space
-  #then downcase the string and split on single whitespaces to return an array of words
-  def self.sanitize_punctuation(tweet_string)
-    tweet_string.gsub(/[^0-9a-z@#' ]/i, '').squish.downcase
+  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
+  def self.sanitize_punctuation(tweet_hash)
+    binding.pry
+    for item in tweet_hash
+      item[:sanetized_text] = item[:text].gsub(/[^0-9a-z@#' ]/i, '').squish
+    end
+    binding.pry    
   end
 
   def self.word_hash_from_array(array, hash={})
+    binding.pry
     #reduce the array of arrays created above into a hash with words as keys and counts as values
     array.reduce(hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) }
+    binding.pry  
   end
 
   #looks in a hash (like the one made by self.make_word_count_hash_from_string) 
   #and makes a hash with the words with their first character
   #like the one made by self.make_word_count_hash_from_string
   def self.words_starting_with_character(hash, character)
+    binding.pry
     hash.select { |key, value| key[0] == character }
+    binding.pry
   end
 
   def self.drop_stop_words(hash)

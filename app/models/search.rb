@@ -7,13 +7,13 @@ class Search < ActiveRecord::Base
 
   #takes a array of hashes and deletes words matching the regex
   #agument: array of hashes, regex to match
-  #returns: array of hashes with sanetized_text field added and run through the regex
-  def self.sanetize_words_matching_regex(tweet_array, regex, result={})
+  #returns: array of hashes with sanetized_text field added if needed and all instances of regex removed
+  def self.sanetize_words_matching_regex(tweets, regex, result={})
     binding.pry
-    tweet_array.map do |tweet|
-      #gsub modifies the string in place
-      var = tweet[:sanetized_text] ? tweet[:sanetized_text] : tweet[:text] 
-      tweet[:sanetized_text] = var.sub(regex, '') 
+    tweets.map do |tweet|
+      #gsub replaces all instances of regex with an empty string
+      text = tweet[:sanetized_text] ? tweet[:sanetized_text] : tweet[:text] 
+      tweet[:sanetized_text] = text.gsub(regex, '') 
     end
   end
 

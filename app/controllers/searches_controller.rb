@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
   end
 
   #the user looked up a handle already in the database, so 
-  #return: database object oh handle
+  #return: database object with that username
   def database_show
     #find the database object
     search = Search.find_by(username: params[:username]||current_user.handle)
@@ -26,7 +26,9 @@ class SearchesController < ApplicationController
   #get tweets from twitter and save them 
   def twitter_show
     #database object for the searched user handle
+        binding.pry
     search = current_user.searches.new username: params[:username]||current_user.handle
+        binding.pry
     #a array of hashed tweets from twitter via twitter gem
     reply = get_tweets(params[:username]||current_user.handle)
     binding.pry
@@ -39,12 +41,9 @@ class SearchesController < ApplicationController
       search = Search.sanetize_words_matching_regex(reply, /(?<=^|(?<=[^a-zA-Z0-9-_\\.]))@([A-Za-z]+[A-Za-z0-9_]+)/)
       #regex matching any hashtag from http://stackoverflow.com/questions/1563844/best-hashtag-regex  
       search = Search.sanetize_words_matching_regex(reply, /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/)
-      search = sanitize_punctuation(search)
+      search = Search.sanetize_words_matching_regex(search, /[^0-9a-z@#' ]/i)
       # want to add a 
       binding.pry
-      #sanitize input, and split the string on spaces
-      #then turn that arry into a hash of word counts with keys being unique words
-      reply = Search.word_hash_from_array(Search.sanitize_punctuation(reply).split(' '))
       #placement of this line is important because it's before anything gets dropped
       #cool stat is currently not being used
       @unique_words = reply.count
@@ -68,9 +67,11 @@ class SearchesController < ApplicationController
     redirect_to search_fail_path(params)
   end
 
+
   #returns an array of 200 Twitter::Tweet objects
   #Twitter:tweet is a hash
   def get_tweets(username)
+    binding.pry
     collect_with_max_id do |max_id|
       options = {count: 200, include_rts: true}
       options[:max_id] = max_id unless max_id.nil?
@@ -113,19 +114,6 @@ class SearchesController < ApplicationController
   def fail
     @username = params[:username]
     @search = Search.new
-  end
-
-  #agument: array of hashes
-  #returns: hash of hashes with sanetized_text field modified 
-  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
-  #squish replaces multiple space and newline characters with a single space
-  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
-  def sanitize_punctuation(tweet_hash)
-    binding.pry
-    tweet_hash.map |tweet|
-      tweet[:sanetized_text] = tweet[:sanetized_text].gsub(/[^0-9a-z@#' ]/i, '').squish
-    end
-    binding.pry    
   end
 
 

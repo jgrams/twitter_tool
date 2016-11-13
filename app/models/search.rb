@@ -47,7 +47,7 @@ class Search < ActiveRecord::Base
     binding.pry
   end
 
-  def self.drop_stop_words(tweet)
+  def self.drop_stop_words(tweets)
     stop_word_hash = {"a"=>0, "about"=>0, "above"=>0, "after"=>0, "again"=>0, "against"=>0, "all"=>0, "am"=>0, 
       "an"=>0, "and"=>0, "any"=>0, "are"=>0, "aren't"=>0, "as"=>0, "at"=>0, "be"=>0, "because"=>0, "been"=>0, 
       "before"=>0, "being"=>0, "below"=>0, "between"=>0, "both"=>0, "but"=>0, "by"=>0, "can't"=>0, "cannot"=>0, 
@@ -70,7 +70,14 @@ class Search < ActiveRecord::Base
       #add twitter specific hash words starting at rt
     }
     #drop any word in the stop_word_hash
-    hash.reject { |key, value| stop_word_hash[key] }
+    tweets.reject { |key, value| stop_word_hash[key] }
+  end
+
+  def self.find_charged_words(tweets, stop_word_hash={})
+    stop_word_hash = {"black"=>0, "blacks"=>0, "racist"=>0, "cuck"=>0, "republican"=>0, "trump"=>0, "pepe"=>0,
+    }
+    #drop any word in the stop_word_hash
+    tweets.reject { |key, value| stop_word_hash[key] }
   end
 
   #pulls out not @tweets, so content words

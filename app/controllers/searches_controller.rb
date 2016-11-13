@@ -41,15 +41,14 @@ class SearchesController < ApplicationController
         #regex matching any hashtag from http://stackoverflow.com/questions/1563844/best-hashtag-regex 
         /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/,
         #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
-        /[^0-9a-z@#' ]/i)
-      binding.pry
-      search.stored_tweets = reply
+        /[^0-9a-z@#' ]/i)   
       #word count sanitized text
       search.word_count = Search.return_word_count_hash(reply)
+      search.word_count = Search.drop_stop_words(search.word_count)
       #pull out words starting with "# or "@" and store them in the database object
       search.hashtag_count = {"#"=>1}
       search.at_tweet_count = {"@"=>1}
-      search.at_tweet_count = {"http://twitter.com"=>1}
+      search.link_count = {"http://twitter.com"=>1}
       search.save
       #sorts the hash and returns instance variables of sorted arrays for display
       top_counts(search)
@@ -94,7 +93,6 @@ class SearchesController < ApplicationController
 
   #make instance variables by turning hashes of word counts into sorted arrays
   def top_counts(search, count=40)
-    binding.pry
     @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
     @content_count = Search.sort_word_count(search.word_count)
     @hashtag_count = Search.sort_word_count(search.hashtag_count)

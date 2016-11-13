@@ -5,37 +5,19 @@ class Search < ActiveRecord::Base
   validates :user_id, presence:true
   validates :username, presence:true, uniqueness:true
 
-  #takes a string and deletes words matching the regex (intended to catch links)
-  #then returns a hash like self.make_word_count_hash_from_string
-  #passed in regex matches http://, https://, and ftp:// : /^(http|https|ftp):////.*$/
-  #in addition, deletes matches from string by gsubbing them with ""
-  def self.words_matching_regex(string, regex, hash={})
+  #takes a array of hashes and deletes words matching the regex
+  #agument: array of hashes, regex to match
+  #returns: array of hashes with sanetized_text field added and run through the regex
+  def self.sanetize_words_matching_regex(tweet_array, regex, result={})
     binding.pry
-    #gsub modifies the string in place
-    string.gsub!(regex) do |match| 
-      #update the hash
-      hash.update(match => hash.fetch(match, 0) + 1) 
-      #replace with empty space
-      match = ''
+    tweet_array.map do |tweet|
+      #gsub modifies the string in place
+      var = tweet[:sanetized_text] ? tweet[:sanetized_text] : tweet[:text] 
+      tweet[:sanetized_text] = var.sub(regex, '') 
     end
-    #return the hash
-    #the reject is hacky bullcrap designed to drop too short urls, this fix should be in the regex
-    hash.reject { |key, value| key.length <= 12 }
-    binding.pry
   end
 
-  #agument: hash of hashes
-  #returns: hash of hashes with sanetized_text field added 
-  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
-  #squish replaces multiple space and newline characters with a single space
-  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
-  def self.sanitize_punctuation(tweet_hash)
-    binding.pry
-    for item in tweet_hash
-      item[:sanetized_text] = item[:text].gsub(/[^0-9a-z@#' ]/i, '').squish
-    end
-    binding.pry    
-  end
+
 
   def self.word_hash_from_array(array, hash={})
     binding.pry
@@ -93,5 +75,4 @@ class Search < ActiveRecord::Base
       hash.sort_by { |word, count| count.to_i }.reverse.first(x)
     end
   end
-
 end

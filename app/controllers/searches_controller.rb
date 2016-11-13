@@ -31,10 +31,16 @@ class SearchesController < ApplicationController
     reply = get_tweets(params[:username]||current_user.handle)
     binding.pry
     if !reply.empty?
-      tweet_text = reply.text
       #passed in regex matches "http://....", "https://..." 
       #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-      search.link_count = Search.words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/)
+      search = Search.sanetize_words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/)
+      #remove any twitter usernames from sanetized string
+      # from http://shahmirj.com/blog/extracting-twitter-usertags-using-regex
+      search = Search.sanetize_words_matching_regex(reply, /(?<=^|(?<=[^a-zA-Z0-9-_\\.]))@([A-Za-z]+[A-Za-z0-9_]+)/)
+      #regex matching any hashtag from http://stackoverflow.com/questions/1563844/best-hashtag-regex  
+      search = Search.sanetize_words_matching_regex(reply, /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/)
+      search = sanitize_punctuation(search)
+      # want to add a 
       binding.pry
       #sanitize input, and split the string on spaces
       #then turn that arry into a hash of word counts with keys being unique words
@@ -94,17 +100,32 @@ class SearchesController < ApplicationController
 
   #make instance variables by turning hashes of word counts into sorted arrays
   def top_counts(search, count=40)
+    binding.pry
     @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
     @content_count = Search.sort_word_count(search.word_count)
     @hashtag_count = Search.sort_word_count(search.hashtag_count)
     @link_count = Search.sort_word_count(search.link_count, 8)
     @username = search.username
+    binding.pry
   end
 
   #fail page for error handling and if the username doesn't exist or there were no tweets
   def fail
     @username = params[:username]
     @search = Search.new
+  end
+
+  #agument: array of hashes
+  #returns: hash of hashes with sanetized_text field modified 
+  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
+  #squish replaces multiple space and newline characters with a single space
+  #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
+  def sanitize_punctuation(tweet_hash)
+    binding.pry
+    tweet_hash.map |tweet|
+      tweet[:sanetized_text] = tweet[:sanetized_text].gsub(/[^0-9a-z@#' ]/i, '').squish
+    end
+    binding.pry    
   end
 
 
@@ -116,5 +137,3 @@ class SearchesController < ApplicationController
   def search_params
     params.require(:search).permit(:username, :word_count)
   end
-
-end

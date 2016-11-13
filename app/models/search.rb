@@ -31,20 +31,16 @@ class Search < ActiveRecord::Base
   end
 
 
-  def self.word_hash_from_array(array, hash={})
-    binding.pry
+  def self.word_hash_from_array(array, hash={})   
     #reduce the array of arrays created above into a hash with words as keys and counts as values
-    array.reduce(hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) }
-    binding.pry  
+    array.reduce(hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) } 
   end
 
   #looks in a hash (like the one made by self.make_word_count_hash_from_string) 
   #and makes a hash with the words with their first character
   #like the one made by self.make_word_count_hash_from_string
   def self.words_starting_with_character(hash, character)
-    binding.pry
     hash.select { |key, value| key[0] == character }
-    binding.pry
   end
 
   def self.drop_stop_words(tweets)

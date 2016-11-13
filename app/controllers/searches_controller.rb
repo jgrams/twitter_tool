@@ -98,7 +98,6 @@ class SearchesController < ApplicationController
     @hashtag_count = Search.sort_word_count(search.hashtag_count)
     @link_count = Search.sort_word_count(search.link_count, 8)
     @username = search.username
-    binding.pry
   end
 
   #fail page for error handling and if the username doesn't exist or there were no tweets

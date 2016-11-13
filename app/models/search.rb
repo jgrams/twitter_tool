@@ -8,15 +8,27 @@ class Search < ActiveRecord::Base
   #takes a array of hashes and deletes words matching the regex
   #agument: array of hashes, regex to match
   #returns: array of hashes with sanetized_text field added if needed and all instances of regex removed
-  def self.sanetize_words_matching_regex(tweets, regex, result={})
-    binding.pry
-    tweets.map do |tweet|
+  def self.sanetize_words_matching_regex(tweets, *reg_ex_array)
+    tweets.map do |id, tweet|
       #gsub replaces all instances of regex with an empty string
-      text = tweet[:sanetized_text] ? tweet[:sanetized_text] : tweet[:text] 
-      tweet[:sanetized_text] = text.gsub(regex, '') 
+      reg_ex_array.each do |regex| 
+        text = tweet[:sanetized_text] ? tweet[:sanetized_text] : tweet[:text]
+        tweet[:sanetized_text] = text.gsub(regex, '')
+      end
+      #squish removes multiple spaces and replaces them with single spaces
+      tweet[:sanetized_text] = tweet[:sanetized_text].squish.downcase
     end
   end
 
+  #argument: hash of tweet objects
+  #returns: word a count hash of tweet_object[:sanetized_text]
+  def self.return_word_count_hash(tweets, word_count_hash={})
+    tweets.each do |id, tweet|
+      text_array = tweet[:sanetized_text].split(' ')
+      text_array.reduce(word_count_hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) }
+    end
+    word_count_hash
+  end
 
 
   def self.word_hash_from_array(array, hash={})
@@ -35,7 +47,7 @@ class Search < ActiveRecord::Base
     binding.pry
   end
 
-  def self.drop_stop_words(hash)
+  def self.drop_stop_words(tweet)
     stop_word_hash = {"a"=>0, "about"=>0, "above"=>0, "after"=>0, "again"=>0, "against"=>0, "all"=>0, "am"=>0, 
       "an"=>0, "and"=>0, "any"=>0, "are"=>0, "aren't"=>0, "as"=>0, "at"=>0, "be"=>0, "because"=>0, "been"=>0, 
       "before"=>0, "being"=>0, "below"=>0, "between"=>0, "both"=>0, "but"=>0, "by"=>0, "can't"=>0, "cannot"=>0, 
@@ -48,13 +60,13 @@ class Search < ActiveRecord::Base
       "myself"=>0, "no"=>0, "nor"=>0, "not"=>0, "of"=>0, "off"=>0, "on"=>0, "once"=>0, "only"=>0, "or"=>0, "other"=>0, 
       "ought"=>0, "our"=>0, "ours"=>0, "ourselves"=>0, "out"=>0, "over"=>0, "own"=>0, "same"=>0, "shan't"=>0, "she"=>0, 
       "she'd"=>0, "she'll"=>0, "she's"=>0, "should"=>0, "shouldn't"=>0, "so"=>0, "some"=>0, "such"=>0, "than"=>0, "that"=>0, 
-      "that's"=>0, "the"=>0, "their"=>0, "theirs"=>0, "them"=>0, "themselves"=>0, "then"=>0, "there"=>0, "there's"=>0, "these"=>0, 
+      "that's"=>0, "the"=>0, "their"=>0, "theirs"=>0, "ßthem"=>0, "themselves"=>0, "then"=>0, "there"=>0, "there's"=>0, "these"=>0, 
       "they"=>0, "they'd"=>0, "they'll"=>0, "they're"=>0, "they've"=>0, "this"=>0, "those"=>0, "through"=>0, "to"=>0, "too"=>0, 
       "under"=>0, "until"=>0, "up"=>0, "very"=>0, "was"=>0, "wasn't"=>0, "we"=>0, "we'd"=>0, "we'll"=>0, "we're"=>0, 
       "we've"=>0, "were"=>0, "weren't"=>0, "what"=>0, "what's"=>0, "when"=>0, "when's"=>0, "where"=>0, "where's"=>0, 
       "which"=>0, "while"=>0, "who"=>0, "who's"=>0, "whom"=>0, "why"=>0, "why's"=>0, "with"=>0, "won't"=>0, "would"=>0, 
       "wouldn't"=>0, "you"=>0, "you'd"=>0, "you'll"=>0, "you're"=>0, "you've"=>0, "your"=>0, "yours"=>0, "yourself"=>0, 
-      "yourselves"=>0, "zero"=>0, "rt"=>0, "like"=>0, "just"=>0, "amp"=>0, "@"=>0, "#"=>0, "il"=>0, "oh"=>0, "#"=>0
+      "yourselves"=>0, "zero"=>0, "rt"=>0, "like"=>0, "just"=>0, "amp"=>0, "@"=>0, "#"=>0, "il"=>0, "oh"=>0, "#"=>0, "'"=>0
       #add twitter specific hash words starting at rt
     }
     #drop any word in the stop_word_hash

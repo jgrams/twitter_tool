@@ -26,39 +26,34 @@ class SearchesController < ApplicationController
   #get tweets from twitter and save them 
   def twitter_show
     #database object for the searched user handle
-        binding.pry
     search = current_user.searches.new username: params[:username]||current_user.handle
-        binding.pry
     #a array of hashed tweets from twitter via twitter gem
     reply = get_tweets(params[:username]||current_user.handle)
-    binding.pry
     if !reply.empty?
-      #passed in regex matches "http://....", "https://..." 
-      #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-      search = Search.sanetize_words_matching_regex(reply, /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/)
-      #remove any twitter usernames from sanetized string
-      # from http://shahmirj.com/blog/extracting-twitter-usertags-using-regex
-      search = Search.sanetize_words_matching_regex(reply, /(?<=^|(?<=[^a-zA-Z0-9-_\\.]))@([A-Za-z]+[A-Za-z0-9_]+)/)
-      #regex matching any hashtag from http://stackoverflow.com/questions/1563844/best-hashtag-regex  
-      search = Search.sanetize_words_matching_regex(reply, /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/)
-      search = Search.sanetize_words_matching_regex(search, /[^0-9a-z@#' ]/i)
-      # want to add a 
+      #sanetizes text by making a new sanetized_text field and running regexes on text
+      Search.sanetize_words_matching_regex(reply, 
+        #passed in regex matches "http://....", "https://..." 
+        #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
+        /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/,
+        #remove any twitter usernames from sanetized string
+        # from http://shahmirj.com/blog/extracting-twitter-usertags-using-regex
+        /(?<=^|(?<=[^a-zA-Z0-9-_\\.]))@([A-Za-z]+[A-Za-z0-9_]+)/,
+        #regex matching any hashtag from http://stackoverflow.com/questions/1563844/best-hashtag-regex 
+        /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/,
+        #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
+        /[^0-9a-z@#' ]/i)
       binding.pry
-      #placement of this line is important because it's before anything gets dropped
-      #cool stat is currently not being used
-      @unique_words = reply.count
-      #drop stop words from the hash
-      reply = Search.drop_stop_words(reply)
-      #pull out words not starting with "# or "@" and store them in the database object
-      search.word_count = Search.content_words(reply)
+      search.stored_tweets = reply
+      #word count sanitized text
+      search.word_count = Search.return_word_count_hash(reply)
       #pull out words starting with "# or "@" and store them in the database object
-      search.hashtag_count = Search.words_starting_with_character(reply, "#")
-      search.at_tweet_count = Search.words_starting_with_character(reply, "@")
+      search.hashtag_count = {"#"=>1}
+      search.at_tweet_count = {"@"=>1}
+      search.at_tweet_count = {"http://twitter.com"=>1}
       search.save
-      #sorts the hash and returns instance variables or sorted arrays for display
+      #sorts the hash and returns instance variables of sorted arrays for display
       top_counts(search)
       #makes a new search object that can be passed along to the search controller
-      binding.pry
       @search = Search.new
     else
       redirect_to search_fail_path
@@ -71,7 +66,6 @@ class SearchesController < ApplicationController
   #returns an array of 200 Twitter::Tweet objects
   #Twitter:tweet is a hash
   def get_tweets(username)
-    binding.pry
     collect_with_max_id do |max_id|
       options = {count: 200, include_rts: true}
       options[:max_id] = max_id unless max_id.nil?
@@ -83,16 +77,15 @@ class SearchesController < ApplicationController
   #loop over tweets to get the max number, where I choose what to pull out of the twitter
   #returns an array of hashes composed on various objects 
   #(currently Time, Num, String)
-  def collect_with_max_id(collection=[], max_id=nil, &block)
+  def collect_with_max_id(collection={}, max_id=nil, &block)
     response = yield(max_id)
     response.each do |tweet|
-      collection << { 
-        id: tweet.id, 
-        url: tweet.url, 
-        created_at: tweet.created_at, 
-        text: tweet.text, 
-        linked_media: tweet.media.map { |e|  e.url.to_s }, 
-        linked_urls: tweet.urls.map { |e|  e.expanded_url.to_s },
+      collection[tweet.id] = { 
+          url: tweet.url, 
+          created_at: tweet.created_at, 
+          text: tweet.text, 
+          linked_media: tweet.media.map { |e|  e.url.to_s }, 
+          linked_urls: tweet.urls.map { |e|  e.expanded_url.to_s },
       }
     end
     response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)
@@ -116,12 +109,9 @@ class SearchesController < ApplicationController
     @search = Search.new
   end
 
-
-
-
-
   private
 
   def search_params
     params.require(:search).permit(:username, :word_count)
   end
+end

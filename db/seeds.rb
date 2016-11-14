@@ -23,3 +23,259 @@ Example.create(
     trimmed_at_tweet_count: {"@berniesanders"=>"535", "@hillaryclinton"=>"74", "@msnbc"=>"33", "@benjealous"=>"22", "@cascamike"=>"22", "@moveon"=>"21", "@maryaliceparks"=>"21", "@erikaandiola"=>"19", "@people4bernie"=>"18", "@morningjoe"=>"16", "@wpjohnwagner"=>"14", "@unipolitica"=>"13", "@facethenation"=>"13", "@tulsigabbard"=>"13", "@kartpath"=>"13", "@abcpolitics"=>"12", "@janeosanders"=>"12", "@thisweekabc"=>"12", "@killermike"=>"12", "@markruffalo"=>"12", "@cnnsotu"=>"11", "@susansarandon"=>"11", "@dreamerjd"=>"11", "@meetthepress"=>"10", "@berniesanders'"=>"10", "@cornelwest"=>"9", "@nbcsnl"=>"9", "@latinos4bernie"=>"9", "@grforsanders"=>"9", "@"=>"8", "@ninaturner"=>"8", "@rbreich"=>"8", "@cnn"=>"8", "@kthomasdc"=>"7", "@jhutch1992"=>"7", "@cspan"=>"7", "@cnnpolitics"=>"7", "@yamiche"=>"7", "@nvdems"=>"7", "@mrdannyglover"=>"7"},
     trimmed_content_count: {"bernie"=>"311", "people"=>"308", "vote"=>"256", "campaign"=>"227", "will"=>"225", "today"=>"211", "need"=>"208", "us"=>"205", "can"=>"203", "country"=>"181", "must"=>"178", "sanders"=>"173", "live"=>"161", "political"=>"154", "new"=>"145", "wall"=>"144", "make"=>"144", "get"=>"134", "street"=>"132", "right"=>"128", "one"=>"124", "change"=>"120", "revolution"=>"119", "together"=>"119", "health"=>"118", "now"=>"115", "care"=>"114", "https"=>"114", "america"=>"113", "watch"=>"107", "win"=>"103", "go"=>"101", "president"=>"100", "time"=>"100", "want"=>"96", "stand"=>"95", "americans"=>"92", "every"=>"91", "american"=>"91", "rally"=>"88"}, 
     trimmed_hashtag_count: {"#feelthebern"=>"131", "#demdebate"=>"105", "#notmeus"=>"54", "#caucusforbernie"=>"46", "#demtownhall"=>"40", "#supermonday"=>"37", "#votetogether"=>"34", "#iacaucus"=>"30", "#breakemup"=>"30", "#americatogether"=>"29", "#supertuesday"=>"28", "#fitn"=>"26", "#debatewithbernie"=>"21", "#bythepeople"=>"21", "#nhpolitics"=>"17", "#primaryday"=>"16", "#nhprimary"=>"15", "#bernie2016"=>"14", "#birdiesanders"=>"13", "#scforbernie"=>"13", "#bernieinmn"=>"13", "#ivoted"=>"12", "#bernieinvegas"=>"12", "#forthepeople"=>"11", "#gopdebate"=>"10", "#gotvforbernie"=>"10", "#nvdemscaucus"=>"10", "#ofthepeople"=>"10", "#cnnsotu"=>"9", "#bernieinma"=>"9", "#iowa"=>"9", "#bernieinia"=>"8", "#iowatoday"=>"8", "#berniesanders"=>"8", "#unidosconbernie"=>"8", "#mapoli"=>"8", "#bernieinal"=>"8", "#fightfor15"=>"7", "#medicareforall"=>"7", "#wearebernie"=>"7"})
+
+Example.create(
+    Twitter::Tweet.new = {
+                       :created_at => "Wed Oct 05 20:00:09 +0000 2016",
+                               :id => 783758698430758912,
+                           :id_str => "783758698430758912",
+                             :text => "RT @FAIRImmigration: .@CongCulberson demands halt in new citizenships until DHS fixes fingerprints https://t.co/WCLYtLwGa9 via @WashTimes",
+                        :truncated => false,
+                         :entities => {
+                 :hashtags => [],
+                  :symbols => [],
+            :user_mentions => [
+                [0] {
+                    :screen_name => "FAIRImmigration",
+                           :name => "FAIR",
+                             :id => 18956212,
+                         :id_str => "18956212",
+                        :indices => [
+                        [0] 3,
+                        [1] 19
+                    ]
+                },
+                [1] {
+                    :screen_name => "CongCulberson",
+                           :name => "John Culberson",
+                             :id => 24183358,
+                         :id_str => "24183358",
+                        :indices => [
+                        [0] 22,
+                        [1] 36
+                    ]
+                },
+                [2] {
+                    :screen_name => "WashTimes",
+                           :name => "The Washington Times",
+                             :id => 14662354,
+                         :id_str => "14662354",
+                        :indices => [
+                        [0] 127,
+                        [1] 137
+                    ]
+                }
+            ],
+                     :urls => [
+                [0] {
+                             :url => "https://t.co/WCLYtLwGa9",
+                    :expanded_url => "http://go.shr.lc/2dupwhe",
+                     :display_url => "go.shr.lc/2dupwhe",
+                         :indices => [
+                        [0] 99,
+                        [1] 122
+                    ]
+                }
+            ]
+        },
+                           :source => "<a href=\"http://twitter.com\" rel=\"nofollow\">Twitter Web Client</a>",
+            :in_reply_to_status_id => nil,
+        :in_reply_to_status_id_str => nil,
+              :in_reply_to_user_id => nil,
+          :in_reply_to_user_id_str => nil,
+          :in_reply_to_screen_name => nil,
+                             :user => {
+                                            :id => 14904437,
+                                        :id_str => "14904437",
+                                          :name => "johnculberson",
+                                   :screen_name => "johnculberson",
+                                      :location => "Houston TX/Washington DC",
+                                   :description => "John Culberson: Proud father, happy husband. TX Congressman-Jeffersonian Republican. Let Texans Run Texas. Amateur astronomer",
+                                           :url => "http://t.co/EHj4Qg6Op2",
+                                      :entities => {
+                        :url => {
+                    :urls => [
+                        [0] {
+                                     :url => "http://t.co/EHj4Qg6Op2",
+                            :expanded_url => "https://twitter.com/johnculberson",
+                             :display_url => "twitter.com/johnculberson",
+                                 :indices => [
+                                [0] 0,
+                                [1] 22
+                            ]
+                        }
+                    ]
+                },
+                :description => {
+                    :urls => []
+                }
+            },
+                                     :protected => false,
+                               :followers_count => 16892,
+                                 :friends_count => 11360,
+                                  :listed_count => 950,
+                                    :created_at => "Mon May 26 02:46:17 +0000 2008",
+                              :favourites_count => 28,
+                                    :utc_offset => -21600,
+                                     :time_zone => "Central Time (US & Canada)",
+                                   :geo_enabled => false,
+                                      :verified => true,
+                                :statuses_count => 3225,
+                                          :lang => "en",
+                          :contributors_enabled => false,
+                                 :is_translator => false,
+                        :is_translation_enabled => false,
+                      :profile_background_color => "9AE4E8",
+                  :profile_background_image_url => "http://pbs.twimg.com/profile_background_images/9273278/Sam_Houston.jpg",
+            :profile_background_image_url_https => "https://pbs.twimg.com/profile_background_images/9273278/Sam_Houston.jpg",
+                       :profile_background_tile => true,
+                             :profile_image_url => "http://pbs.twimg.com/profile_images/55024554/JAC_and_USS_Texas_normal.jpg",
+                       :profile_image_url_https => "https://pbs.twimg.com/profile_images/55024554/JAC_and_USS_Texas_normal.jpg",
+                            :profile_link_color => "8C5A00",
+                  :profile_sidebar_border_color => "733500",
+                    :profile_sidebar_fill_color => "FDFDFC",
+                            :profile_text_color => "000000",
+                  :profile_use_background_image => true,
+                          :has_extended_profile => false,
+                               :default_profile => false,
+                         :default_profile_image => false,
+                                     :following => false,
+                           :follow_request_sent => false,
+                                 :notifications => false,
+                               :translator_type => "none"
+        },
+                              :geo => nil,
+                      :coordinates => nil,
+                            :place => nil,
+                     :contributors => nil,
+                 :retweeted_status => {
+                           :created_at => "Fri Sep 30 14:24:32 +0000 2016",
+                                   :id => 781862298738647040,
+                               :id_str => "781862298738647040",
+                                 :text => ".@CongCulberson demands halt in new citizenships until DHS fixes fingerprints https://t.co/WCLYtLwGa9 via @WashTimes",
+                            :truncated => false,
+                             :entities => {
+                     :hashtags => [],
+                      :symbols => [],
+                :user_mentions => [
+                    [0] {
+                        :screen_name => "CongCulberson",
+                               :name => "John Culberson",
+                                 :id => 24183358,
+                             :id_str => "24183358",
+                            :indices => [
+                            [0] 1,
+                            [1] 15
+                        ]
+                    },
+                    [1] {
+                        :screen_name => "WashTimes",
+                               :name => "The Washington Times",
+                                 :id => 14662354,
+                             :id_str => "14662354",
+                            :indices => [
+                            [0] 106,
+                            [1] 116
+                        ]
+                    }
+                ],
+                         :urls => [
+                    [0] {
+                                 :url => "https://t.co/WCLYtLwGa9",
+                        :expanded_url => "http://go.shr.lc/2dupwhe",
+                         :display_url => "go.shr.lc/2dupwhe",
+                             :indices => [
+                            [0] 78,
+                            [1] 101
+                        ]
+                    }
+                ]
+            },
+                               :source => "<a href=\"http://www.hootsuite.com\" rel=\"nofollow\">Hootsuite</a>",
+                :in_reply_to_status_id => nil,
+            :in_reply_to_status_id_str => nil,
+                  :in_reply_to_user_id => nil,
+              :in_reply_to_user_id_str => nil,
+              :in_reply_to_screen_name => nil,
+                                 :user => {
+                                                :id => 18956212,
+                                            :id_str => "18956212",
+                                              :name => "FAIR",
+                                       :screen_name => "FAIRImmigration",
+                                          :location => "Washington, DC",
+                                       :description => "Federation for American Immigration Reform (FAIR) fights for a stronger America with controlled borders, reduced immigration and better enforcement. #NoAmnesty",
+                                               :url => "http://t.co/1J12j2NPWp",
+                                          :entities => {
+                            :url => {
+                        :urls => [
+                            [0] {
+                                         :url => "http://t.co/1J12j2NPWp",
+                                :expanded_url => "http://FAIRUS.org",
+                                 :display_url => "FAIRUS.org",
+                                     :indices => [
+                                    [0] 0,
+                                    [1] 22
+                                ]
+                            }
+                        ]
+                    },
+                    :description => {
+                        :urls => []
+                    }
+                },
+                                         :protected => false,
+                                   :followers_count => 71023,
+                                     :friends_count => 1282,
+                                      :listed_count => 612,
+                                        :created_at => "Tue Jan 13 22:20:16 +0000 2009",
+                                  :favourites_count => 2,
+                                        :utc_offset => -18000,
+                                         :time_zone => "Eastern Time (US & Canada)",
+                                       :geo_enabled => true,
+                                          :verified => true,
+                                    :statuses_count => 21906,
+                                              :lang => "en",
+                              :contributors_enabled => false,
+                                     :is_translator => false,
+                            :is_translation_enabled => false,
+                          :profile_background_color => "FFFFFF",
+                      :profile_background_image_url => "http://pbs.twimg.com/profile_background_images/378800000180840343/GTe7kCoA.png",
+                :profile_background_image_url_https => "https://pbs.twimg.com/profile_background_images/378800000180840343/GTe7kCoA.png",
+                           :profile_background_tile => false,
+                                 :profile_image_url => "http://pbs.twimg.com/profile_images/555382946534682624/0mr4xevm_normal.png",
+                           :profile_image_url_https => "https://pbs.twimg.com/profile_images/555382946534682624/0mr4xevm_normal.png",
+                                :profile_banner_url => "https://pbs.twimg.com/profile_banners/18956212/1466021888",
+                                :profile_link_color => "142966",
+                      :profile_sidebar_border_color => "FFFFFF",
+                        :profile_sidebar_fill_color => "303E5F",
+                                :profile_text_color => "989886",
+                      :profile_use_background_image => true,
+                              :has_extended_profile => false,
+                                   :default_profile => false,
+                             :default_profile_image => false,
+                                         :following => false,
+                               :follow_request_sent => false,
+                                     :notifications => false,
+                                   :translator_type => "none"
+            },
+                                  :geo => nil,
+                          :coordinates => nil,
+                                :place => nil,
+                         :contributors => nil,
+                      :is_quote_status => false,
+                        :retweet_count => 65,
+                       :favorite_count => 72,
+                            :favorited => false,
+                            :retweeted => false,
+                   :possibly_sensitive => false,
+                                 :lang => "en"
+        },
+                  :is_quote_status => false,
+                    :retweet_count => 65,
+                   :favorite_count => 0,
+                        :favorited => false,
+                        :retweeted => false,
+               :possibly_sensitive => false,
+                             :lang => "en"
+    }
+)    

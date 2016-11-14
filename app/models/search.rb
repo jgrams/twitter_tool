@@ -20,14 +20,27 @@ class Search < ActiveRecord::Base
     end
   end
 
-  #argument: hash of tweet objects
+  #argument: hash of tweet objects, optionally accepts a hash to update
   #returns: word a count hash of tweet_object[:sanetized_text]
-  def self.return_word_count_hash(tweets, word_count_hash={})
+  def self.tweet_text_to_word_count_hash(tweets, word_count_hash={})
     tweets.each do |id, tweet|
       text_array = tweet[:sanetized_text].split(' ')
       text_array.reduce(word_count_hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) }
     end
-    word_count_hash
+    return word_count_hash
+    binding.pry
+  end
+
+  #argument: hash of tweets, key within hash for an array of words, optionally accepts a hash to update
+  #returns: word a count hash of an array of individual words
+  def self.word_array_return_word_count_hash(tweets, symbol_of_array, word_count_hash={})
+    tweets.each do |id, tweet|
+      text_array = tweet[symbol_of_array]
+      text_array.reduce(word_count_hash) do |hash_memo, word|
+        hash_memo.update(word => hash_memo.fetch(word, 0) + 1)
+      end
+    end
+    return word_count_hash
   end
 
 
@@ -44,6 +57,7 @@ class Search < ActiveRecord::Base
   end
 
   def self.drop_stop_words(tweets)
+    binding.pry
     stop_word_hash = {"a"=>0, "about"=>0, "above"=>0, "after"=>0, "again"=>0, "against"=>0, "all"=>0, "am"=>0, 
       "an"=>0, "and"=>0, "any"=>0, "are"=>0, "aren't"=>0, "as"=>0, "at"=>0, "be"=>0, "because"=>0, "been"=>0, 
       "before"=>0, "being"=>0, "below"=>0, "between"=>0, "both"=>0, "but"=>0, "by"=>0, "can't"=>0, "cannot"=>0, 
@@ -70,15 +84,10 @@ class Search < ActiveRecord::Base
   end
 
   def self.find_charged_words(tweets, stop_word_hash={})
-    stop_word_hash = {"black"=>0, "blacks"=>0, "racist"=>0, "cuck"=>0, "republican"=>0, "trump"=>0, "pepe"=>0,
+    stop_word_hash = {"black"=>0, "blacks"=>0, "racist"=>0,
     }
     #drop any word in the stop_word_hash
     tweets.reject { |key, value| stop_word_hash[key] }
-  end
-
-  #pulls out not @tweets, so content words
-  def self.content_words(hash)
-    hash.select { |key, value| key[0] != "@" && key[0] != "#"}
   end
 
   #Return an array of top x word_count objects converted to an array

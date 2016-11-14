@@ -31,7 +31,7 @@ class SearchesController < ApplicationController
     reply = get_tweets(params[:username]||current_user.handle)
     if !reply.empty?
       #sanetizes text by making a new sanetized_text field and running regexes on text
-      Search.sanetize_words_matching_regex(reply, 
+      reply = Search.sanetize_words_matching_regex(reply, 
         #passed in regex matches "http://....", "https://..." 
         #found: http://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
         /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])?/,
@@ -43,15 +43,21 @@ class SearchesController < ApplicationController
         #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
         /[^0-9a-z@#' ]/i)   
       #word count sanitized text
-      search.word_count = Search.return_word_count_hash(reply)
-      search.word_count = Search.drop_stop_words(search.word_count)
+      binding.pry
+      #search.stored_tweets = reply
+      search.word_count = Search.tweet_text_to_word_count_hash(reply)
+      binding.pry
+      search.word_count = Search.drop_stop_words(reply)
       #pull out words starting with "# or "@" and store them in the database object
-      search.hashtag_count = {"#"=>1}
-      search.at_tweet_count = {"@"=>1}
-      search.link_count = {"http://twitter.com"=>1}
+      search.hashtag_count = Search.word_array_return_word_count_hash(reply, :hashtags)
+      search.at_tweet_count = Search.word_array_return_word_count_hash(reply, :user_mentions)
+      search.link_count = Search.word_array_return_word_count_hash(reply, :linked_urls)
+      #this turnes the value of the hash into a string, which ins't the behavior I want
+      search.stored_tweets = reply
       search.save
       #sorts the hash and returns instance variables of sorted arrays for display
       top_counts(search)
+      binding.pry
       #makes a new search object that can be passed along to the search controller
       @search = Search.new
     else
@@ -85,6 +91,8 @@ class SearchesController < ApplicationController
           text: tweet.text, 
           linked_media: tweet.media.map { |e|  e.url.to_s }, 
           linked_urls: tweet.urls.map { |e|  e.expanded_url.to_s },
+          user_mentions: tweet.user_mentions.map { |e|  e.screen_name },
+          hashtags: tweet.hashtags.map { |e|  e.text }
       }
     end
     response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)

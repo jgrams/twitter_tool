@@ -8,10 +8,10 @@ class Search < ActiveRecord::Base
   #takes a array of hashes and deletes words matching the regex
   #agument: array of hashes, regex to match
   #returns: array of hashes with sanetized_text field added if needed and all instances of regex removed
-  def self.sanetize_words_matching_regex(tweets, *reg_ex_array)
+  def self.sanetize_words_matching_regex(tweets, *reg_exes )
     tweets.map do |id, tweet|
       #gsub replaces all instances of regex with an empty string
-      reg_ex_array.each do |regex| 
+      reg_exes.each do |regex| 
         text = tweet[:sanetized_text] ? tweet[:sanetized_text] : tweet[:text]
         tweet[:sanetized_text] = text.gsub(regex, '')
       end

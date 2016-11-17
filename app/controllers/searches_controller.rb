@@ -30,10 +30,14 @@ class SearchesController < ApplicationController
   #get tweets from twitter and save them 
   def twitter_show
     #database object for the searched user handle
+    
     search = current_user.searches.new username: params[:username]||current_user.handle
     #a array of hashed tweets from twitter via twitter gem
+    binding.pry
     reply = get_tweets(params[:username]||current_user.handle)
+    binding.pry
     if !reply.empty?
+      binding.pry
       #sanetizes text by making a new sanetized_text field and running regexes on text
       reply = Search.sanetize_words_matching_regex(reply, 
         #passed in regex matches "http://....", "https://..." 
@@ -98,6 +102,7 @@ class SearchesController < ApplicationController
           user_mentions: tweet.user_mentions.map { |e|  e.screen_name },
           hashtags: tweet.hashtags.map { |e|  e.text }
       }
+      binding.pry
     end
     response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)
   end

@@ -17,9 +17,13 @@ class SearchesController < ApplicationController
   #return: database object with that username
   def database_show
     #find the database object
-    search = Search.find_by(username: params[:username]||current_user.handle)
+    incoming_search = Search.find_by(username: params[:username]||current_user.handle)
     #sorts the hash and returns instance variables or sorted arrays for display
-    top_counts(search)
+    @at_tweet_count = Search.sort_word_count(incoming_search.at_tweet_count)
+    @content_count = Search.sort_word_count(incoming_search.word_count)
+    @hashtag_count = Search.sort_word_count(incoming_search.hashtag_count)
+    @link_count = Search.sort_word_count(incoming_search.link_count, 8)
+    @username = incoming_search.username
     @search = Search.new
   end
 
@@ -96,16 +100,6 @@ class SearchesController < ApplicationController
       }
     end
     response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)
-  end
-
-
-  #make instance variables by turning hashes of word counts into sorted arrays
-  def top_counts(search, count=40)
-    @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
-    @content_count = Search.sort_word_count(search.word_count)
-    @hashtag_count = Search.sort_word_count(search.hashtag_count)
-    @link_count = Search.sort_word_count(search.link_count, 8)
-    @username = search.username
   end
 
   #fail page for error handling and if the username doesn't exist or there were no tweets

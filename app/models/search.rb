@@ -43,21 +43,7 @@ class Search < ActiveRecord::Base
     return word_count_hash
   end
 
-
-  def self.word_hash_from_array(array, hash={})   
-    #reduce the array of arrays created above into a hash with words as keys and counts as values
-    array.reduce(hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) } 
-  end
-
-  #looks in a hash (like the one made by self.make_word_count_hash_from_string) 
-  #and makes a hash with the words with their first character
-  #like the one made by self.make_word_count_hash_from_string
-  def self.words_starting_with_character(hash, character)
-    hash.select { |key, value| key[0] == character }
-  end
-
   def self.drop_stop_words(tweets)
-    binding.pry
     stop_word_hash = {"a"=>0, "about"=>0, "above"=>0, "after"=>0, "again"=>0, "against"=>0, "all"=>0, "am"=>0, 
       "an"=>0, "and"=>0, "any"=>0, "are"=>0, "aren't"=>0, "as"=>0, "at"=>0, "be"=>0, "because"=>0, "been"=>0, 
       "before"=>0, "being"=>0, "below"=>0, "between"=>0, "both"=>0, "but"=>0, "by"=>0, "can't"=>0, "cannot"=>0, 
@@ -76,7 +62,7 @@ class Search < ActiveRecord::Base
       "we've"=>0, "were"=>0, "weren't"=>0, "what"=>0, "what's"=>0, "when"=>0, "when's"=>0, "where"=>0, "where's"=>0, 
       "which"=>0, "while"=>0, "who"=>0, "who's"=>0, "whom"=>0, "why"=>0, "why's"=>0, "with"=>0, "won't"=>0, "would"=>0, 
       "wouldn't"=>0, "you"=>0, "you'd"=>0, "you'll"=>0, "you're"=>0, "you've"=>0, "your"=>0, "yours"=>0, "yourself"=>0, 
-      "yourselves"=>0, "zero"=>0, "rt"=>0, "like"=>0, "just"=>0, "amp"=>0, "@"=>0, "#"=>0, "il"=>0, "oh"=>0, "#"=>0, "'"=>0
+      "yourselves"=>0, "zero"=>0, "rt"=>0, "like"=>0, "just"=>0, "amp"=>0, "@"=>0, "#"=>0, "il"=>0, "oh"=>0, "'"=>0
       #add twitter specific hash words starting at rt
     }
     #drop any word in the stop_word_hash
@@ -91,12 +77,13 @@ class Search < ActiveRecord::Base
   end
 
   #Return an array of top x word_count objects converted to an array
+  #note that count starts at 0
   #default is 40 words 
-  def self.sort_word_count(hash, x=40)
+  def self.sort_word_count(hash, count=40)
     if hash.empty?
       nil
     else 
-      hash.sort_by { |word, count| count.to_i }.reverse.first(x)
+      hash.sort_by { |word, count| count.to_i }.reverse.first(count)
     end
   end
 end

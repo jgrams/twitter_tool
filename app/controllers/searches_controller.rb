@@ -29,15 +29,11 @@ class SearchesController < ApplicationController
 
   #get tweets from twitter and save them 
   def twitter_show
-    #database object for the searched user handle
-    
+    #database object for the searched user handle    
     search = current_user.searches.new username: params[:username]||current_user.handle
     #a array of hashed tweets from twitter via twitter gem
-    binding.pry
-    reply = get_tweets(params[:username]||current_user.handle)
-    binding.pry
+    reply = get_tweets(search)
     if !reply.empty?
-      binding.pry
       #sanetizes text by making a new sanetized_text field and running regexes on text
       reply = Search.sanetize_words_matching_regex(reply, 
         #passed in regex matches "http://....", "https://..." 
@@ -49,23 +45,18 @@ class SearchesController < ApplicationController
         #regex matching any hashtag from http://stackoverflow.com/questions/1563844/best-hashtag-regex 
         /#(\w*[0-9a-zA-Z]+\w*[0-9a-zA-Z])/,
         #gsub sanetizes input with a regex removing all removes all non-alphanumberic characters (perserving spaces)
-        /[^0-9a-z@#' ]/i)   
-      #word count sanitized text
-      binding.pry
-      #search.stored_tweets = reply
-      search.word_count = Search.tweet_text_to_word_count_hash(reply)
-      binding.pry
-      search.word_count = Search.drop_stop_words(reply)
-      #pull out words starting with "# or "@" and store them in the database object
-      search.hashtag_count = Search.word_array_return_word_count_hash(reply, :hashtags)
-      search.at_tweet_count = Search.word_array_return_word_count_hash(reply, :user_mentions)
-      search.link_count = Search.word_array_return_word_count_hash(reply, :linked_urls)
+        /[^0-9a-z@#' ]/i)
+      #store database items of the tweet pull
+      search.stored_tweets = Search.drop_stop_words(reply)
+      search.word_count = Search.string_to_word_count_hash(reply, :sanetized_text)
+      search.hashtag_count = Search.array_to_word_count_hash(reply, :hashtags)
+      search.at_tweet_count = Search.array_to_word_count_hash(reply, :user_mentions)
+      search.link_count = Search.array_to_word_count_hash(reply, :linked_urls)
       #this turnes the value of the hash into a string, which ins't the behavior I want
       search.stored_tweets = reply
       search.save
       #sorts the hash and returns instance variables of sorted arrays for display
       top_counts(search)
-      binding.pry
       #makes a new search object that can be passed along to the search controller
       @search = Search.new
     else
@@ -75,9 +66,9 @@ class SearchesController < ApplicationController
     redirect_to search_fail_path(params)
   end
 
-
   #returns an array of 200 Twitter::Tweet objects
   #Twitter:tweet is a hash
+  #should be moved to the model eventually
   def get_tweets(username)
     collect_with_max_id do |max_id|
       options = {count: 200, include_rts: true}
@@ -102,7 +93,6 @@ class SearchesController < ApplicationController
           user_mentions: tweet.user_mentions.map { |e|  e.screen_name },
           hashtags: tweet.hashtags.map { |e|  e.text }
       }
-      binding.pry
     end
     response.empty? ? collection : collect_with_max_id(collection, response.last.id - 1, &block)
   end

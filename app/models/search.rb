@@ -6,7 +6,7 @@ class Search < ActiveRecord::Base
   validates :username, presence:true, uniqueness:true
 
   #takes a array of hashes and deletes words matching the regex
-  #agument: array of hashes, regex to match
+  #agument: hash of , variable number of regex
   #returns: array of hashes with sanetized_text field added if needed and all instances of regex removed
   def self.sanetize_words_matching_regex(tweets, *reg_exes )
     tweets.map do |id, tweet|
@@ -18,14 +18,19 @@ class Search < ActiveRecord::Base
       #squish removes multiple spaces and replaces them with single spaces
       tweet[:sanetized_text] = tweet[:sanetized_text].squish.downcase
     end
+    tweets
   end
 
-  #argument: hash of tweet objects, optionally accepts a hash to update
-  #returns: word a count hash of tweet_object[:sanetized_text]
-  def self.tweet_text_to_word_count_hash(tweets, word_count_hash={})
-    tweets.each do |id, tweet|
-      text_array = tweet[:sanetized_text].split(' ')
-      text_array.reduce(word_count_hash) { |hash_memo, word| hash_memo.update(word => hash_memo.fetch(word, 0) + 1) }
+  #argument: hash of tweet objects, a symbol of the key to be read, optionally accepts a hash to update
+  #returns: word count hash
+  def self.string_to_word_count_hash(tweets, string_key, word_count_hash={})
+    tweets.each do |tweet_id, tweet|
+      text_array = tweet[string_key].split(' ')
+      text_array.each do |word| 
+        word_count_hash.update(word_count_hash.fetch(word, {word => {:word_count => 0, :associated_tweet_ids => []}}))
+        word_count_hash[word][:word_count] += 1
+        word_count_hash[word][:associated_tweet_ids] << tweet_id
+      end
     end
     return word_count_hash
     binding.pry
@@ -33,7 +38,7 @@ class Search < ActiveRecord::Base
 
   #argument: hash of tweets, key within hash for an array of words, optionally accepts a hash to update
   #returns: word a count hash of an array of individual words
-  def self.word_array_return_word_count_hash(tweets, symbol_of_array, word_count_hash={})
+  def self.array_to_word_count_hash(tweets, symbol_of_array, word_count_hash={})
     tweets.each do |id, tweet|
       text_array = tweet[symbol_of_array]
       text_array.reduce(word_count_hash) do |hash_memo, word|
@@ -43,6 +48,8 @@ class Search < ActiveRecord::Base
     return word_count_hash
   end
 
+  #arguemnt: a hash of word counts
+  #returns: hash of word counts with stop words dropped
   def self.drop_stop_words(tweets)
     stop_word_hash = {"a"=>0, "about"=>0, "above"=>0, "after"=>0, "again"=>0, "against"=>0, "all"=>0, "am"=>0, 
       "an"=>0, "and"=>0, "any"=>0, "are"=>0, "aren't"=>0, "as"=>0, "at"=>0, "be"=>0, "because"=>0, "been"=>0, 
@@ -62,7 +69,7 @@ class Search < ActiveRecord::Base
       "we've"=>0, "were"=>0, "weren't"=>0, "what"=>0, "what's"=>0, "when"=>0, "when's"=>0, "where"=>0, "where's"=>0, 
       "which"=>0, "while"=>0, "who"=>0, "who's"=>0, "whom"=>0, "why"=>0, "why's"=>0, "with"=>0, "won't"=>0, "would"=>0, 
       "wouldn't"=>0, "you"=>0, "you'd"=>0, "you'll"=>0, "you're"=>0, "you've"=>0, "your"=>0, "yours"=>0, "yourself"=>0, 
-      "yourselves"=>0, "zero"=>0, "rt"=>0, "like"=>0, "just"=>0, "amp"=>0, "@"=>0, "#"=>0, "il"=>0, "oh"=>0, "'"=>0
+      "yourselves"=>0, "zero"=>0, "rt"=>0, "like"=>0, "just"=>0, "amp"=>0, "@"=>0, "#"=>0, "il"=>0, "oh"=>0, "'"=>0,
       #add twitter specific hash words starting at rt
     }
     #drop any word in the stop_word_hash
@@ -70,7 +77,7 @@ class Search < ActiveRecord::Base
   end
 
   def self.find_charged_words(tweets, stop_word_hash={})
-    stop_word_hash = {"black"=>0, "blacks"=>0, "racist"=>0,
+    stop_word_hash = {"black"=>0, "blacks"=>0,
     }
     #drop any word in the stop_word_hash
     tweets.reject { |key, value| stop_word_hash[key] }
@@ -86,4 +93,6 @@ class Search < ActiveRecord::Base
       hash.sort_by { |word, count| count.to_i }.reverse.first(count)
     end
   end
+
+
 end

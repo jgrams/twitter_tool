@@ -2,6 +2,7 @@
 #should make the search a has and belongs to many relationship.
 class Search < ActiveRecord::Base
   belongs_to :user
+  has_many :tweets
   validates :user_id, presence:true
   validates :username, presence:true, uniqueness:true
 

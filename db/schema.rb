@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161224205535) do
+ActiveRecord::Schema.define(version: 20161224211330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,15 +46,10 @@ ActiveRecord::Schema.define(version: 20161224205535) do
   add_index "link_counts", ["search_id"], name: "index_link_counts_on_search_id", using: :btree
 
   create_table "searches", force: :cascade do |t|
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "username"
     t.integer  "user_id"
-    t.hstore   "word_count",     default: {}, null: false
-    t.hstore   "hashtag_count",  default: {}, null: false
-    t.hstore   "at_tweet_count", default: {}, null: false
-    t.hstore   "link_count",     default: {}, null: false
-    t.hstore   "stored_tweets",  default: {}, null: false
   end
 
   create_table "tweet_hashtags", force: :cascade do |t|

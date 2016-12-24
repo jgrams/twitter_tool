@@ -3,6 +3,7 @@ class SearchesController < ApplicationController
   #check that the search is a valid twitter user, then route to the correct controller
   def create
     if current_user.twitter.user(search_params[:username])
+      binding.pry
       if Search.find_by(username: search_params[:username])
         redirect_to search_database_show_path(search_params)
       else
@@ -19,6 +20,7 @@ class SearchesController < ApplicationController
     #find the database object
     incoming_search = Search.find_by(username: params[:username]||current_user.handle)
     #sorts the hash and returns instance variables or sorted arrays for display
+    binding.pry
     @at_tweet_count = Search.sort_word_count(incoming_search.at_tweet_count)
     @content_count = Search.sort_word_count(incoming_search.word_count)
     @hashtag_count = Search.sort_word_count(incoming_search.hashtag_count)
@@ -55,15 +57,28 @@ class SearchesController < ApplicationController
       #this turnes the value of the hash into a string, which ins't the behavior I want
       search.stored_tweets = reply
       search.save
+      binding.pry
       #sorts the hash and returns instance variables of sorted arrays for display
       top_counts(search)
       #makes a new search object that can be passed along to the search controller
       @search = Search.new
+      binding.pry
     else
       redirect_to search_fail_path
     end
   rescue Twitter::Error
     redirect_to search_fail_path(params)
+  end
+
+  # DATABASE REFACTOR STARTS WITH FRUSTRATION HERE
+  #make instance variables by turning hashes of word counts into sorted arrays
+  def top_counts(search, count=40)
+    binding.pry
+    @at_tweet_count = Search.sort_word_count(search.at_tweet_count)
+    @content_count = Search.sort_word_count(search.word_count)
+    @hashtag_count = Search.sort_word_count(search.hashtag_count)
+    @link_count = Search.sort_word_count(search.link_count, 8)
+    @username = search.username
   end
 
   #returns an array of 200 Twitter::Tweet objects

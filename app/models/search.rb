@@ -86,7 +86,9 @@ class Search < ActiveRecord::Base
   #Return an array of top x word_count objects converted to an array
   #note that count starts at 0
   #default is 40 words 
+  #return a sorted array of the most common count 
   def self.sort_word_count(hash, count=40)
+    binding.pry
     if hash.empty?
       nil
     else 

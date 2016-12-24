@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161224193644) do
+ActiveRecord::Schema.define(version: 20161224205535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,22 @@ ActiveRecord::Schema.define(version: 20161224193644) do
     t.hstore   "trimmed_content_count",  default: {}, null: false
   end
 
+  create_table "hashtag_counts", force: :cascade do |t|
+    t.string  "hashtag"
+    t.integer "hashtag_count"
+    t.integer "search_id"
+  end
+
+  add_index "hashtag_counts", ["search_id"], name: "index_hashtag_counts_on_search_id", using: :btree
+
+  create_table "link_counts", force: :cascade do |t|
+    t.string  "link"
+    t.integer "link_count"
+    t.integer "search_id"
+  end
+
+  add_index "link_counts", ["search_id"], name: "index_link_counts_on_search_id", using: :btree
+
   create_table "searches", force: :cascade do |t|
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
@@ -40,6 +56,34 @@ ActiveRecord::Schema.define(version: 20161224193644) do
     t.hstore   "link_count",     default: {}, null: false
     t.hstore   "stored_tweets",  default: {}, null: false
   end
+
+  create_table "tweet_hashtags", force: :cascade do |t|
+    t.string  "hashtag"
+    t.integer "tweet_id"
+  end
+
+  add_index "tweet_hashtags", ["tweet_id"], name: "index_tweet_hashtags_on_tweet_id", using: :btree
+
+  create_table "tweet_links", force: :cascade do |t|
+    t.string  "link_url"
+    t.integer "tweet_id"
+  end
+
+  add_index "tweet_links", ["tweet_id"], name: "index_tweet_links_on_tweet_id", using: :btree
+
+  create_table "tweet_media", force: :cascade do |t|
+    t.string  "media_url"
+    t.integer "tweet_id"
+  end
+
+  add_index "tweet_media", ["tweet_id"], name: "index_tweet_media_on_tweet_id", using: :btree
+
+  create_table "tweet_user_mentions", force: :cascade do |t|
+    t.string  "user_mention"
+    t.integer "tweet_id"
+  end
+
+  add_index "tweet_user_mentions", ["tweet_id"], name: "index_tweet_user_mentions_on_tweet_id", using: :btree
 
   create_table "tweets", force: :cascade do |t|
     t.datetime "created_at",         null: false
@@ -67,5 +111,20 @@ ActiveRecord::Schema.define(version: 20161224193644) do
     t.string   "name"
   end
 
+  create_table "word_counts", force: :cascade do |t|
+    t.string  "word"
+    t.integer "word_count"
+    t.integer "search_id"
+  end
+
+  add_index "word_counts", ["search_id"], name: "index_word_counts_on_search_id", using: :btree
+
+  add_foreign_key "hashtag_counts", "searches"
+  add_foreign_key "link_counts", "searches"
+  add_foreign_key "tweet_hashtags", "tweets"
+  add_foreign_key "tweet_links", "tweets"
+  add_foreign_key "tweet_media", "tweets"
+  add_foreign_key "tweet_user_mentions", "tweets"
   add_foreign_key "tweets", "searches"
+  add_foreign_key "word_counts", "searches"
 end

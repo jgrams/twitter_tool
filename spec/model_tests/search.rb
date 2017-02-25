@@ -24,7 +24,7 @@ RSpec.describe Search, :type => :model do
                                      :linked_urls => [],
                                    :user_mentions => ["NYTArchives"
                                                       ],
-                                        :hashtags => []
+                                        :key => "value", hashtags => []
                                               }
                       }
     @reply_database_ready = {798772122147401728 => {

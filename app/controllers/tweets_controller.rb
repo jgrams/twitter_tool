@@ -4,11 +4,9 @@ class TweetsController < ApplicationController
     Tweet.new
   end
 
-  def twitter_pull(search_object)
-    
-  end
 
-  def database_pull(search_object)
+
+  def get_tweet_from_database(search_object)
     
   end
 

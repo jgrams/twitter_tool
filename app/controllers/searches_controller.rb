@@ -1,25 +1,35 @@
 class SearchesController < ApplicationController
 
+  def new
+    Search.new
+  end
 
-  #check that the search is a valid twitter user, then route to the correct controller
-  def create
-    binding.pry
-    if current_user.twitter.user(search_params[:username])
+  def create(search_username = params[:username])
+    if search = Search.find_by(username: search_username)
       binding.pry
-      if Search.find_by(username: search_params[:username])
-        redirect_to search_database_show_path(search_params)
-      else
-        redirect_to search_twitter_show_path(search_params)
-      end
+      redirect_to show_path(search)
+    elsif twitter_search_reply = current_user.twitter.user(search_username)
+        search = new
+        search.username = twitter_search_reply.username
+        search.user_id = twitter_search_reply.id
+        search.save
+        binding.pry
+        get_tweets_from_twitter(search.username)
+    else 
+      raise "Twitter username #{search_username} doesn't exist or is set to private."
     end
   rescue Twitter::Error
     redirect_to search_fail_path(search_params)
   end
 
+  def show(search)
+    @username = search.username
+  end
+
   #the user looked up a handle already in the database, so 
   #return: database object with that username
-  def database_show(username)
-    Tweet.get_tweets(incoming_search)
+  def get_search_from_database(username)
+    Tweet.get_tweets(username)
     binding.pry
     @at_tweet_count = Search.sort_word_count(incoming_search.at_tweet_count)
     @content_count = Search.sort_word_count(incoming_search.word_count)
@@ -30,10 +40,10 @@ class SearchesController < ApplicationController
   end
 
   #get tweets from twitter and save them 
-  def twitter_show(username)
+  def get_search_from_twitter(username)
+    binding.pry
     #database object for the searched user handle    
-    search = current_user.searches.new username: params[:username]||current_user.handle
-    search.save
+    search = current_user.searches.create(username: username)
     #a array of hashed tweets from twitter via twitter gem
     binding.pry
     Tweet.get_tweets(search)
@@ -73,6 +83,8 @@ class SearchesController < ApplicationController
     redirect_to search_fail_path(params)
   end
 
+
+
   # DATABASE REFACTOR STARTS WITH FRUSTRATION HERE
   #make instance variables by turning hashes of word counts into sorted arrays
   def top_counts(search, count=40)
@@ -93,6 +105,6 @@ class SearchesController < ApplicationController
   private
 
   def search_params
-    params.require(:search).permit(:username, :word_count)
+    params.require(:searches).permit(:username)
   end
 end

@@ -12,9 +12,9 @@ class SearchesController < ApplicationController
         search = new
         search.username = twitter_search_reply.username
         search.user_id = twitter_search_reply.id
-        search.save
+        # search.save
         binding.pry
-        get_tweets_from_twitter(search.username)
+        redirect_to tweets_path(search_username)
     else 
       raise "Twitter username #{search_username} doesn't exist or is set to private."
     end

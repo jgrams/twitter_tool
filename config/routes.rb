@@ -12,8 +12,7 @@ Rails.application.routes.draw do
   post 'search/create' =>  'searches#create'
   get 'search/create' =>  'searches#create'
   get 'example/show' => 'examples#show' 
-  get 'tweet/get' => 'tweets#get_tweets'
-  resources :tweets
+  post 'tweets/create' => 'tweets#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

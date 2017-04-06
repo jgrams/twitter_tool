@@ -12,10 +12,11 @@ class Tweet < ActiveRecord::Base
   #loop over tweets to get the max number, where I choose what to pull out of the twitter
   #returns an hash of hashes composed on various objects 
   #(currently Time, Num, String)
-  def self.collect_with_max_id(collection=[], max_id=nil, &block)
+  def self.collect_with_max_id(search_id, collection=[], max_id=nil, &block)
     responses = yield(max_id)
     responses.each do |reply_tweet|
       tweet_object = Tweet.new
+      tweet_object.search_id = search_id
       tweet_object.text = reply_tweet.text
       binding.pry
       tweet_object.twitter_created_at = reply_tweet.created_at

@@ -13,8 +13,7 @@ class SearchesController < ApplicationController
         search.username = twitter_search_reply.username
         search.user_id = twitter_search_reply.id
         # search.save
-        binding.pry
-        redirect_to tweets_path(search_username)
+        redirect_to url_for(:controller => :tweets, :action => :create, :search_id => search.id)
     else 
       raise "Twitter username #{search_username} doesn't exist or is set to private."
     end

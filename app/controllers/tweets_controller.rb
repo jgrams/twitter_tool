@@ -8,13 +8,13 @@ class TweetsController < ApplicationController
     binding.pry
   end
 
-  def create(search_id)
-    Tweet::collect_with_max_id do |max_id|
-      options = {count: 200, include_rts: true}
+  def create
+    search_id = params[:search_id]
+    options = {count: 200, include_rts: true}
+    Tweet::collect_with_max_id do |max_id, search_id|
       options[:max_id] = max_id unless max_id.nil?
       @count = options[:max_id]
       #puts in a search or the logged in user's name to the twitter api
-      binding.pry
       current_user.twitter.user_timeline(search_id, options)
     end
   end

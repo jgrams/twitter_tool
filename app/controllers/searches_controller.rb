@@ -10,7 +10,7 @@ class SearchesController < ApplicationController
     # if search = Search.find_by(username: search_username)
     #   redirect_to show_path(search)
     # elsif twitter_search_reply = current_user.twitter.user(search_username)
-        search = new Search
+        search = new
         search.username = twitter_search_reply.username
         search.user_id = twitter_search_reply.id
         search.save

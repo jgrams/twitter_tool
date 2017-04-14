@@ -9,14 +9,6 @@ class Tweet < ActiveRecord::Base
     binding.pry
   end
 
-  # @param count [Integer]
-  # @return [Array<Twitter::Tweet>]
-def collect_with_max_id(collection=[], max_id=nil, search_id, &block)
-  response = yield(max_id, search_id)
-  collection += response
-  response.empty? ? collection.flatten : collect_with_max_id(collection, response.last.id - 1, search_id, &block)
-end
-
   #loop over tweets to get the max number, where I choose what to pull out of the twitter
   #returns an hash of hashes composed on various objects 
   #(currently Time, Num, String)

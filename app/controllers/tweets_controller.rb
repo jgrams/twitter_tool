@@ -11,6 +11,7 @@ class TweetsController < ApplicationController
   def create
     search_id = params[:search_id]
     options = {count: 200, include_rts: true}
+    binding.pry
     Tweet::collect_with_max_id do |max_id, search_id|
       options[:max_id] = max_id unless max_id.nil?
       @count = options[:max_id]

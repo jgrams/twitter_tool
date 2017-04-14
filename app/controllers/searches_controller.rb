@@ -5,14 +5,15 @@ class SearchesController < ApplicationController
   end
 
   def create(search_username = params[:username])
-    if search = Search.find_by(username: search_username)
-      binding.pry
-      redirect_to show_path(search)
-    elsif twitter_search_reply = current_user.twitter.user(search_username)
-        search = new
+    #delete this after testing
+    if true
+    # if search = Search.find_by(username: search_username)
+    #   redirect_to show_path(search)
+    # elsif twitter_search_reply = current_user.twitter.user(search_username)
+        search = new Search
         search.username = twitter_search_reply.username
         search.user_id = twitter_search_reply.id
-        # search.save
+        search.save
         redirect_to url_for(:controller => :tweets, :action => :create, :search_id => search.id)
     else 
       raise "Twitter username #{search_username} doesn't exist or is set to private."

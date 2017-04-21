@@ -1,7 +1,7 @@
 class SearchesController < ApplicationController
 
   def new
-    Search.new
+    current_user.Search.new
   end
 
   def create(search_username = params[:username])
@@ -10,31 +10,30 @@ class SearchesController < ApplicationController
     #
     if true
     # if get_search_from_database(search_username)
-    #   redirect_to show_path(search_username)
+    #   redirect_to show(search_username)
     # elsif twitter_search_reply = current_user.twitter.user(search_username)
-      if search_results = get_search_from_twitter(search_username)
-        new_search = new
-        #integer, rename user_id field
+      #this is a User object from twitter
+      search_results = get_search_from_twitter(search_username)
+      #make a new object
+      search = Search.create do |new_search|
+        #integer
         new_search.twitter_id = search_results.id
         #string
         new_search.lang = search_results.lang
         #string
         new_search.location = search_results.location
         #string
-        new_search.person_name = search_results.person_name
+        new_search.person_name = search_results.name
         #string
         new_search.screen_name = search_results.screen_name
-        new_search.save
-        binding.pry
-        #string, not being saved
-        @desctiption = search_results.description
-        twitter_search_reply.screen_name
-        render :new
-        redirect_to :controller => :tweets, :action => :create, :search_id => search_results.id
       end
-    else 
-      raise "Twitter username #{search_username} doesn't exist or is set to private."
     end
+    binding.pry
+    #string, not being saved
+    @desctiption = search_results.description
+
+    render :new
+    redirect_to :controller => :tweets, :action => :create, :search_id => search_results.id
   rescue Twitter::Error
     redirect_to search_fail_path(search_params)
   end

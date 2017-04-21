@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get 'search/fail' => 'searches#fail' 
   post 'search/create' =>  'searches#create'
   get 'search/create' =>  'searches#create'
-  get 'example/show' => 'examples#show' 
   get 'tweets/create' => 'tweets#create'
 
   # The priority is based upon order of creation: first created -> highest priority.

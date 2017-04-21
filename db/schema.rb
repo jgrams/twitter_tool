@@ -17,18 +17,6 @@ ActiveRecord::Schema.define(version: 20161224211330) do
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "examples", force: :cascade do |t|
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "username",                            null: false
-    t.hstore   "hashtag_count",          default: {}, null: false
-    t.hstore   "at_tweet_count",         default: {}, null: false
-    t.hstore   "content_count",          default: {}, null: false
-    t.hstore   "trimmed_hashtag_count",  default: {}, null: false
-    t.hstore   "trimmed_at_tweet_count", default: {}, null: false
-    t.hstore   "trimmed_content_count",  default: {}, null: false
-  end
-
   create_table "hashtag_counts", force: :cascade do |t|
     t.string  "hashtag"
     t.integer "hashtag_count"

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161224211330) do
+ActiveRecord::Schema.define(version: 20170421061935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "hashtag_counts", force: :cascade do |t|
     t.string  "hashtag"
@@ -34,11 +33,18 @@ ActiveRecord::Schema.define(version: 20161224211330) do
   add_index "link_counts", ["search_id"], name: "index_link_counts_on_search_id", using: :btree
 
   create_table "searches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "username"
+    t.integer  "twitter_id"
+    t.string   "lang"
+    t.string   "location"
+    t.string   "person_name"
+    t.string   "screen_name"
     t.integer  "user_id"
   end
+
+  add_index "searches", ["user_id"], name: "index_searches_on_user_id", using: :btree
 
   create_table "tweet_hashtags", force: :cascade do |t|
     t.string  "hashtag"
@@ -104,6 +110,7 @@ ActiveRecord::Schema.define(version: 20161224211330) do
 
   add_foreign_key "hashtag_counts", "searches"
   add_foreign_key "link_counts", "searches"
+  add_foreign_key "searches", "users"
   add_foreign_key "tweet_hashtags", "tweets"
   add_foreign_key "tweet_links", "tweets"
   add_foreign_key "tweet_media", "tweets"

@@ -4,6 +4,7 @@
 module Error
   module ErrorHandler
     def self.included(klass)
+      binding.pry
       klass.class_eval do
         rescue_from StandardError do |error|
           handle_error(:standard_error, 500, error.to_s)
@@ -14,8 +15,9 @@ module Error
     private
     
     def handle_error(error, status, message)
-      json_error = {status: status, error: error, message: message}.as_json
-      render json: json_error
+      @error = {status: status, error: error, message: message}
+      binding.pry
+      render json: @error, status: status
     end
   
   end

@@ -1,7 +1,7 @@
 require "rails_helper"
 require "Time"
 
-RSpec.describe Search, :type => :controller do
+RSpec.describe User, :type => :controller do
   before :all do
     @fake_auth_hash = OmniAuth::AuthHash.new ({
        "provider" => "twitter",

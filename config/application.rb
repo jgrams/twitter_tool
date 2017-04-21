@@ -24,7 +24,5 @@ module TwitterTool
     config.active_record.raise_in_transactional_callbacks = true
     #configuration for heroku
     config.serve_static_files = true
-    #include error handler in lib/error/error_handler.rb
-    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

@@ -14,7 +14,7 @@ class SearchesController < ApplicationController
     # elsif twitter_search_reply = current_user.twitter.user(search_username)
       if search_results = get_search_from_twitter(search_username)
         new_search = new
-        #integer
+        #integer, rename user_id field
         new_search.twitter_id = search_results.id
         #string
         new_search.lang = search_results.lang

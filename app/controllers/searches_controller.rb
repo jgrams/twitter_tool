@@ -1,21 +1,23 @@
 class SearchesController < ApplicationController
 
   def new
-    current_user.Search.new
+    @search = Search.new
   end
 
-  def create(search_username = params[:username])
-    #
+  def create
+    # Gramila
     # delete this after testing
     #
     if true
-    # if get_search_from_database(search_username)
+    # if user_exists_in_database(search_username)
     #   redirect_to show(search_username)
     # elsif twitter_search_reply = current_user.twitter.user(search_username)
       #this is a User object from twitter
-      search_results = get_search_from_twitter(search_username)
+      search_results = get_search_from_twitter(user_handle_param)
       #make a new object
-      search = Search.create do |new_search|
+      search = Search.new do |new_search|
+        #integer, forgien key reference
+        new_search.user = session[:user_id]
         #integer
         new_search.twitter_id = search_results.id
         #string
@@ -27,15 +29,13 @@ class SearchesController < ApplicationController
         #string
         new_search.screen_name = search_results.screen_name
       end
+      # Gramila
+      # uncomment and handle duplicate searches
+      #search.save!
+      search.id = 1
     end
     binding.pry
-    #string, not being saved
-    @desctiption = search_results.description
-
-    render :new
-    redirect_to :controller => :tweets, :action => :create, :search_id => search_results.id
-  rescue Twitter::Error
-    redirect_to search_fail_path(search_params)
+    redirect_to controller: :tweets, action: :new, search_id: search
   end
 
   def show(search_username)
@@ -44,7 +44,7 @@ class SearchesController < ApplicationController
 
   #the user looked up a handle already in the database, so 
   #return: database object with that username
-  def get_search_from_database(username)
+  def user_exists_in_database(username)
     Search.find_by(username: username)
     #fill in later!
   end
@@ -55,8 +55,6 @@ class SearchesController < ApplicationController
   rescue Twitter::Error
     redirect_to search_fail_path(username)
   end
-
-
 
   # DATABASE REFACTOR STARTS WITH FRUSTRATION HERE
   #make instance variables by turning hashes of word counts into sorted arrays
@@ -70,14 +68,16 @@ class SearchesController < ApplicationController
   end
 
   #fail page for error handling and if the username doesn't exist or there were no tweets
-  def fail
+  def search_fail(error)
+    @error_message =  error.message
     @username = params[:username]
     @search = Search.new
+    render :fail
   end
 
   private
 
-  def search_params
-    params.require(:searches).permit(:username)
+  def user_handle_param
+    params.require(:user_handle)
   end
 end

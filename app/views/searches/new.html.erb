@@ -1,5 +1,6 @@
 <div class="new">
-  <h1><%= @username %></h1> 
-  <br>
-  <text>"<%= @description %>"</text>
+  <%= form_for @search, url: {action: "create"} do |form| %>
+    <%= form.text_field :username %>
+    <%= form.submit "Search for Tweets" %>
+  <% end %>
 </div>

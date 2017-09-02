@@ -19,9 +19,9 @@
           <ul class="welcome-page-links">
             <li class="welcome-page-buttons">
               <% if current_user %>
-                 <%= button_to "Log Out", user_destroy_path, class: "button outline-search" %>
+                 <%= button_to "Log Out", users_path action:destroy, class: "button outline-search" %>
               <% else %>
-                <%= link_to "Log In", "/auth/twitter", class: "button outline-welcome" %>
+                <%= link_to "Log In", "/auth/twitter", class: "button outline-welcome", method: "post" %>
               <% end %>
             </li> 
             <li class="welcome-page-buttons">

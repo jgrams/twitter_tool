@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <%= link_to user_new_path do %>
+      <%= link_to new_user_path do %>
         <%= tag('img', src: current_user.profile_image, class: "user-image", id: 'Profile Image') %>
       <% end %>
     </div>
@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <%= button_to "Log Out", user_destroy_path, class: "button outline-search" %>
+          <%= button_to "Log Out", users_path action:destroy, class: "button outline-search" %>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

@@ -4,7 +4,7 @@ class Search < ActiveRecord::Base
   belongs_to :user
   has_many :tweets
   validates :twitter_id, presence:true, uniqueness:true
-  validates :username, presence:true, uniqueness:true
+  validates :screen_name, presence:true, uniqueness:true
 
   #takes a array of hashes and deletes words matching the regex
   #agument: hash of , variable number of regex

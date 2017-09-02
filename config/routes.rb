@@ -1,17 +1,8 @@
 Rails.application.routes.draw do
   root 'users#new'
   get '/auth/:provider/callback' => 'users#create'
-  get 'user/new' => 'users#new'
-  post 'user/destroy' => 'users#destroy'
-  get 'search/timeout' => 'searches#timeout'
-  get 'search/show' => 'searches#show'
-  get 'search/user_show' => 'searches#user_show'
-  get 'search/twitter_show/:username' => 'searches#twitter_show'
-  get 'search/database_show/:username' => 'searches#database_show'
-  get 'search/fail' => 'searches#fail' 
-  post 'search/create' =>  'searches#create'
-  get 'search/create' =>  'searches#create'
-  get 'tweets/create' => 'tweets#create'
+  resources :searches, :tweets
+  resource :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

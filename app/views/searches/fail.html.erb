@@ -1,7 +1,9 @@
 <div class="error-text">
-  <%= @username %> is not a recognized twitter user, or they have a protected account.
+  Something went wrong while looking up "<%= @username %>".
 </div>
+<div><%= @error_message %></div>
 <div class="search-div">
+<br>
   <% if @search %>
     <%= form_for @search, url: search_create_path do |s| %> 
     <%= s.text_field :username, class: "search-bar", id: 'Search Bar' %>

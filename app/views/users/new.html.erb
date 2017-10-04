@@ -19,9 +19,9 @@
           <ul class="welcome-page-links">
             <li class="welcome-page-buttons">
               <% if current_user %>
-                 <%= button_to "Log Out", users_path action:destroy, class: "button outline-search" %>
+                <%= button_to 'Log Out', logout_path, [:delete, current_user] %>
               <% else %>
-                <%= link_to "Log In", "/auth/twitter", class: "button outline-welcome", method: "post" %>
+                <%= button_to "Log In", "/auth/twitter", form_class: "outline-welcome" %>
               <% end %>
             </li> 
             <li class="welcome-page-buttons">
@@ -32,7 +32,7 @@
       </div>
       <div class="right-welcome-panel">
         <div class="welcome-image-wrapper">
-          <%= image_tag "twitter_words.svg", class: "welcome-image", alt: "Twitter Words Logo" %>
+          <%= image_tag "twitter_words.svg", form_class: "welcome-image", alt: "Twitter Words Logo" %>
         </div>
       </div>
     </div>

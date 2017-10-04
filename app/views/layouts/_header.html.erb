@@ -2,15 +2,13 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <%= link_to new_user_path do %>
-        <%= tag('img', src: current_user.profile_image, class: "user-image", id: 'Profile Image') %>
-      <% end %>
+      <%= image_tag src: current_user.profile_image, form_class: "user-image", alt: 'Profile Image' %>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <%= button_to "Log Out", users_path action:destroy, class: "button outline-search" %>
+          <%= button_to 'Log Out', logout_path, [:delete, current_user] %>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

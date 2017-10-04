@@ -14,11 +14,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    binding.pry
     render layout: false
-    if current_user
-      @search=Search.new
-    end
   end
 
   protected
